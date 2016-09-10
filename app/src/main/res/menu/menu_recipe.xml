@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/miSearch"
+        android:title="Search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        android:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/miShare"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_share"
+        android:title="Share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:orderInCategory="1" >
+    </item>
+    <item
+        android:id="@+id/miFavorite"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_settings_white_18dp"
+        android:title="Settings"
+        android:orderInCategory="2" >
+    </item>
+</menu>

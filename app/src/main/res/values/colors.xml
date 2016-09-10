@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <!--<color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-</resources>
+    <color name="colorAccent">#FF4081</color>-->
+    <color name="blue_grey_500">#607D8B</color>
+    <color name="blue_grey_600">#546E7A</color>
+    <color name="blue_grey_700">#455A64</color>
+    <color name="blue_grey_800">#37474F</color>
+    <color name="blue_grey_900">#263238</color>
+
+    <color name="deep_orange_500">#FF5722</color>
+    <color name="deep_orange_600">#F4511E</color>
+    <color name="deep_orange_700">#E64A19</color>
+    <color name="deep_orange_800">#D84315</color>
+    <color name="deep_orange_900">#BF360C</color>
+    <color name="deep_orange_a100">#FF9E80</color>
+    <color name="deep_orange_a200">#FF6E40</color>
+    <color name="deep_orange_a400">#FF3D00</color>
+    <color name="deep_orange_a700">#DD2C00</color>
+
+    <color name="light_green_500">#8BC34A</color>
+    <color name="light_green_600">#7CB342</color>
+    <color name="light_green_700">#689F38</color>
+    <color name="light_green_800">#558B2F</color>
+    <color name="light_green_900">#33691E</color>
+    <color name="light_green_a100">#CCFF90</color>
+    <color name="light_green_a200">#B2FF59</color>
+    <color name="light_green_a400">#76FF03</color>
+    <color name="light_green_a700">#64DD17</color>
+
+    <color name="lime_500">#CDDC39</color>
+    <color name="lime_600">#C0CA33</color>
+    <color name="lime_700">#AFB42B</color>
+    <color name="lime_800">#9E9D24</color>
+    <color name="lime_900">#827717</color>
+    <color name="lime_a100">#F4FF81</color>
+    <color name="lime_a200">#EEFF41</color>
+    <color name="lime_a400">#C6FF00</color>
+    <color name="lime_a700">#AEEA00</color>
+
+
+    <color name="purple_300">#BA68C8</color>
+    <color name="purple_500">#9C27B0</color>
+    <color name="purple_600">#8E24AA</color>
+    <color name="purple_700">#7B1FA2</color>
+    <color name="purple_800">#6A1B9A</color>
+    <color name="purple_900">#4A148C</color>
+    <color name="purple_a100">#EA80FC</color>
+    <color name="purple_a200">#E040FB</color>
+    <color name="purple_a400">#D500F9</color>
+    <color name="purple_a700">#AA00FF</color>
+
+    <color name="deep_purple_500">#673AB7</color>
+    <color name="deep_purple_600">#5E35B1</color>
+    <color name="deep_purple_700">#512DA8</color>
+    <color name="deep_purple_800">#4527A0</color>
+    <color name="deep_purple_900">#311B92</color>
+    <color name="deep_purple_a100">#B388FF</color>
+    <color name="deep_purple_a200">#7C4DFF</color>
+    <color name="deep_purple_a400">#651FFF</color>
+    <color name="deep_purple_a700">#6200EA</color>
+
+    <color name="venus_flytrap_21">#15C064</color>
+    <color name="venus_flytrap_11">#3B8D02</color>
+    <color name="venus_flytrap_12">#92A506</color>
+    <color name="venus_flytrap_22">#BCC008</color>
+    <color name="venus_flytrap_23">#C1A208</color>
+    <color name="venus_flytrap_13">#A87D03</color>
+    <color name="venus_flytrap_14">#A60303</color>
+    <color name="venus_flytrap_24">#8E1106</color>
+    <color name="venus_flytrap_25">#5A0502</color>
+
+    <color name="colorPrimary">#9C27B0</color>
+    <color name="colorSecondary">#BA68C8</color>
+    <color name="colorPrimaryDark">#7B1FA2</color>
+    <color name="colorAccent">#76FF03</color>
+
+    <color name="cursorAccent">#76FF03</color>
+    <color name="controlNormal">#B2FF59</color>
+    <color name="controlActivated">#76FF03</color>
+<resources>
