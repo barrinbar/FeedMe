@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Feed Me</string>
 
-    <string name="searchableHint">sSearch recipe or story</string>
+    <string name="searchableHint">Search recipe or story</string>
 
+    <string name="drawer_header_text">Feed Me</string>
+    <string name="ingredients_default">Something has occurred - no ingredients found</string>
+    <string name="instructions_default">Something has occurred, no instructions found</string>
+    <string name="btn_continue_to_story">Continue to story</string>
 </resources>

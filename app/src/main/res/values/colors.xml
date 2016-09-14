@@ -79,4 +79,7 @@
     <color name="cursorAccent">#76FF03</color>
     <color name="controlNormal">#B2FF59</color>
     <color name="controlActivated">#76FF03</color>
-<resources>
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="recipe_title">#4c4c4c</color>
+</resources>

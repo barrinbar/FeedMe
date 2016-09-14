@@ -2,11 +2,11 @@ package com.inbar.feedme;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class RecipeActivity extends BaseActivity {
 
@@ -18,7 +18,7 @@ public class RecipeActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_recipe, menu);
+        getMenuInflater().inflate(R.menu.recipe, menu);
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -33,13 +33,13 @@ public class RecipeActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.miFavorite: {
+            case R.id.action_add_favourite: {
                 if (item.getIcon().equals(R.drawable.ic_favorite_white_18dp)) {
                     item.setIcon(R.drawable.ic_favorite_border_white_18dp);
                     // TODO: remove from user favorites
                 }
                 else {
-                    item.setIcon(R.drawable.ic_favorite_white_18dp)
+                    item.setIcon(R.drawable.ic_favorite_white_18dp);
                     // TODO: add to user favorites
                 }
                 return true;
@@ -54,5 +54,10 @@ public class RecipeActivity extends BaseActivity {
             default:
                 return false;
         }
+    }
+
+
+    public void gotoStory(View view) {
+        // TODO: go to story activity
     }
 }

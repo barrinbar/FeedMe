@@ -6,7 +6,41 @@
     android:layout_height="match_parent"
     tools:context="com.inbar.feedme.RecipeActivity">
 
-    <include layout="@layout/activity_base"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cover_photo_height"
+        android:id="@+id/recipe_photo"
+        android:src="@drawable/recipe_default"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        />
+    <TextView
+        android:id="@+id/recipe_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Default Recipe"
+        android:textColor="@color/recipe_title"
+        android:textSize="@dimen/recipe_title"
+        />
+    <TextView
+        android:id="@+id/recipe_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ingredients_default"
+        android:textIsSelectable="true"
+        />
+    <TextView
+        android:id="@+id/recipe_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/instructions_default"
+        android:textIsSelectable="true"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_goto_story"
+        android:text="@string/btn_continue_to_story"
+        android:onClick="gotoStory"/>
 </LinearLayout>
