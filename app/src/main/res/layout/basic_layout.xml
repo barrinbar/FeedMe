@@ -23,7 +23,7 @@
                 app:title="@string/app_name"
                 app:titleTextAppearance="@style/Toolbar.TitleText"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:nav
+                
                 tools:context=".Toolbar"
                 app:layout_scrollFlags="scroll|enterAlways"
                 />
