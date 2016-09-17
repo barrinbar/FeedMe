@@ -17,4 +17,9 @@
     <dimen name="ic_recipe_overflow_width">20dp</dimen>
     <dimen name="ic_recipe_overflow_height">30dp</dimen>
     <dimen name="ic_recipe_overflow_margin_top">10dp</dimen>
+    <dimen name="ic_recipe_favor_width">30dp</dimen>
+    <dimen name="ic_recipe_favor_height">30dp</dimen>
+    <dimen name="ic_recipe_favor_margin_top">10dp</dimen>
+    <dimen name="ic_recipe_favor_margin_end">16dp</dimen>
+    <dimen name="ic_recipe_favor_margin_start">16dp</dimen>
 </resources>

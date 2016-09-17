@@ -23,7 +23,7 @@
                     android:layout_height="@dimen/cover_photo_height"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/title"
@@ -47,6 +47,19 @@
                     android:textSize="@dimen/cooking_time_count" />
 
                 <ImageView
+                    android:id="@+id/favor"
+                    android:layout_width="@dimen/ic_recipe_favor_width"
+                    android:layout_height="@dimen/ic_recipe_favor_height"
+                    android:layout_alignRight="@id/time"
+                    android:layout_below="@id/thumbnail"
+                    android:layout_marginTop="@dimen/ic_recipe_favor_margin_top"
+                    android:layout_marginEnd="@dimen/ic_recipe_favor_margin_end"
+                    android:layout_marginStart="@dimen/ic_recipe_favor_margin_start"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_favorite_holo_light"
+                    android:contentDescription="@string/add_to_favorites"/>
+
+                <ImageView
                     android:id="@+id/overflow"
                     android:layout_width="@dimen/ic_recipe_overflow_width"
                     android:layout_height="@dimen/ic_recipe_overflow_height"
@@ -54,7 +67,8 @@
                     android:layout_below="@id/thumbnail"
                     android:layout_marginTop="@dimen/ic_recipe_overflow_margin_top"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_action_overflow_holo_light" />
+                    android:src="@drawable/ic_overflow_holo_light"
+                    android:contentDescription="@string/more_options"/>
 
             </RelativeLayout>
 

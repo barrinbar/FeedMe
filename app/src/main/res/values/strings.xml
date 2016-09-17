@@ -7,4 +7,13 @@
     <string name="ingredients_default">Something has occurred - no ingredients found</string>
     <string name="instructions_default">Something has occurred, no instructions found</string>
     <string name="btn_continue_to_story">Continue to story</string>
+    <string name="more_options">More options</string>
+    <string name="backdrop_title">FEED ME</string>
+    <string name="backdrop_subtitle">Kids eat the fun way</string>
+    <string name="add_to_favorites">Add to favorites</string>
+
+    <plurals name="numberOfMinutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
 </resources>
