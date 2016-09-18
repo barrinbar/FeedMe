@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set backdrop image
         try {
-            Glide.with(this).load(R.drawable.recipe_default).into((ImageView) findViewById(R.id.backdrop));
+            Glide.with(this).load(R.drawable.rec_default).into((ImageView) findViewById(R.id.backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,46 +109,49 @@ public class MainActivity extends AppCompatActivity {
      */
     private void prepareRecipes() {
         int[] covers = new int[]{
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default,
-                R.drawable.recipe_default};
+                R.drawable.rec_israeli_salad,
+                R.drawable.rec_scrambled_eggs,
+                R.drawable.rec_pasta_egg,
+                R.drawable.rec_kichri_rice,
+                R.drawable.rec_kubbeh_hamusta,
+                R.drawable.rec_red_kubbeh,
+                R.drawable.rec_beet_kubbeh,
+                R.drawable.rec_onion_soup,
+                R.drawable.rec_mashed_fruits,
+                R.drawable.rec_cheese_toast,
+                R.drawable.rec_shakshuka};
 
-        Recipe a = new Recipe("True Romance", 13, covers[0]);
+        Recipe a = new Recipe("Israeli Salad", 5, covers[0]);
         recipeList.add(a);
 
-        a = new Recipe("Xscpae", 8, covers[1]);
+        a = new Recipe("Scrambled Eggs", 5, covers[1]);
         recipeList.add(a);
 
-        a = new Recipe("Maroon 5", 11, covers[2]);
+        a = new Recipe("Kushkush Pasta", 12, covers[2]);
         recipeList.add(a);
 
-        a = new Recipe("Born to Die", 12, covers[3]);
+        a = new Recipe("Kichri Rice", 30, covers[3]);
         recipeList.add(a);
 
-        a = new Recipe("Honeymoon", 14, covers[4]);
+        a = new Recipe("Kubbeh Hamusta", 60, covers[4]);
         recipeList.add(a);
 
-        a = new Recipe("I Need a Doctor", 1, covers[5]);
+        a = new Recipe("Red Kubbeh", 60, covers[5]);
         recipeList.add(a);
 
-        a = new Recipe("Loud", 11, covers[6]);
+        a = new Recipe("Beet Kubbeh", 60, covers[6]);
         recipeList.add(a);
 
-        a = new Recipe("Legend", 14, covers[7]);
+        a = new Recipe("Onion Soup", 120, covers[7]);
         recipeList.add(a);
 
-        a = new Recipe("Hello", 11, covers[8]);
+        a = new Recipe("Mashed Fruits", 15, covers[8]);
         recipeList.add(a);
 
-        a = new Recipe("Greatest Hits", 17, covers[9]);
+        a = new Recipe("Cheese Toast", 17, covers[9]);
+        recipeList.add(a);
+
+        a = new Recipe("Shakshukah", 40, covers[9]);
         recipeList.add(a);
 
         adapter.notifyDataSetChanged();

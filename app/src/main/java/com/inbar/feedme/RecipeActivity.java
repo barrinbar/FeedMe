@@ -8,6 +8,8 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class RecipeActivity extends BaseActivity {
 
@@ -15,6 +17,7 @@ public class RecipeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
+        loadRecipe();
     }
 
     @Override
@@ -63,6 +66,12 @@ public class RecipeActivity extends BaseActivity {
         }
     }
 
+    public void loadRecipe() {
+        ImageView imgRecipePhoto = (ImageView)findViewById(R.id.recipe_photo);
+        TextView txtTitle = (TextView)findViewById(R.id.recipe_title);
+        TextView txtPrepMins = (TextView)findViewById(R.id.prep_minutes);
+        ImageView imgFavIcon = (ImageView)findViewById(R.id.img_fav);
+    }
 
     public void gotoStory(View view) {
         // TODO: go to story activity

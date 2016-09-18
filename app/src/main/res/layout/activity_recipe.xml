@@ -6,54 +6,57 @@
     android:layout_height="match_parent"
     tools:context="com.inbar.feedme.RecipeActivity">
 
-    <include layout="@layout/basic_layout" />
-
-    <ImageView
-        android:id="@+id/recipe_photo"
+    <!--<include layout="@layout/basic_layout" />-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/cover_photo_height"
-        android:src="@drawable/recipe_default"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:contentDescription="Recipe picture" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/recipe_photo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cover_photo_height"
+            android:src="@drawable/rec_default"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:contentDescription="Recipe picture" />
+
+        <TextView
+            android:id="@+id/recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:text="Default Recipe"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/backdrop_title" />
+
+    </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/imgTime"
+            android:id="@+id/img_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:src="@drawable/ic_time_holo_light"
             />
         <TextView
-            android:id="@+id/txtPrepMinutes"
+            android:id="@+id/prep_minutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="15 minutes"
-            android:layout_toEndOf="@id/imgTime" />
+            android:layout_toEndOf="@id/img_time" />
         <ImageView
-            android:id="@+id/imgFav"
+            android:id="@+id/img_fav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_favorite_holo_dark"
-            android:layout_toStartOf="@+id/txtFavCount"
+            android:layout_alignParentEnd="true"
         />
-        <TextView
-            android:id="@+id/txtFavCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/recipe_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Default Recipe"
-        android:textColor="@color/recipe_title"
-        android:textSize="@dimen/recipe_title"
-        />
+
     <TextView
         android:id="@+id/recipe_ingredients"
         android:layout_width="match_parent"
