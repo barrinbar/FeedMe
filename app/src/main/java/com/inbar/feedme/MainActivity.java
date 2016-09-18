@@ -2,6 +2,7 @@ package com.inbar.feedme;
 
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -29,11 +30,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        configureToolbar();
+
+        configureRecyclerView();
+
+        prepareRecipes();
+
+        // Set backdrop image
+        try {
+            Glide.with(this).load(R.drawable.recipe_default).into((ImageView) findViewById(R.id.backdrop));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void configureToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initCollapsingToolbar();
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+          toolbar.setElevation(4);
+
+        configureCollapsingToolbar();
+    }
+
+    /**
+     * Config Recycler view with recipe cards
+     */
+    private void configureRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         recipeList = new ArrayList<>();
@@ -44,21 +70,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-        prepareRecipes();
-
-        try {
-            Glide.with(this).load(R.drawable.recipe_default).into((ImageView) findViewById(R.id.backdrop));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
      * Initializing collapsing toolbar
      * Will show and hide the toolbar title on scroll
      */
-    private void initCollapsingToolbar() {
+    private void configureCollapsingToolbar() {
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(" ");
