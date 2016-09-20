@@ -1,9 +1,11 @@
 package com.inbar.feedme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,13 +19,17 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import rx.subjects.PublishSubject;
+import rx.Observable;
+
 /**
- * Created by Inbar on 9/15/2016.
+ * Created by Barr Inbar on 9/15/2016.
  */
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Recipe> recipeList;
+    private final PublishSubject<Recipe> onClickSubject = PublishSubject.create();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, time;
@@ -37,7 +43,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
             overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }
-
 
     public RecipesAdapter(Context mContext, List<Recipe> recipeList) {
         this.mContext = mContext;
@@ -54,16 +59,21 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Recipe recipe = recipeList.get(position);
-        holder.title.setText(recipe.getTitle());
-        Resources res = mContext.getResources();
-        String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, recipe.getPrepTime(), recipe.getPrepTime());
+        final Recipe element = recipeList.get(position);
 
-        //String prepTime = recipe.getPrepTime() + " minutes";
+        holder.title.setText(element.getTitle());
+        Resources res = mContext.getResources();
+        String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, element.getPrepTime(), element.getPrepTime());
+
         holder.time.setText(prepTime);
 
         // loading picture using Glide library
-        Glide.with(mContext).load(recipe.getThumbnail()).into(holder.thumbnail);
+        Glide.with(mContext).load(element.getThumbnail())
+                .centerCrop()
+                .placeholder(R.drawable.feedme)
+                .error(R.drawable.rec_default)
+                .crossFade()
+                .into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +81,33 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
                 showPopupMenu(holder.overflow);
             }
         });
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("FEEDME", element.getTitle() + " holder clicked in Recycler view");
+                Toast.makeText(mContext, "You chose to cook " + element.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);
+                gotoRecipe.putExtra("recipe_id", element.getId());
+                mContext.startActivity(gotoRecipe);
+            }
+        });
+
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickSubject.onNext(element);
+                Log.i("FEEDME", element.getTitle() + " holder clicked in Recycler view");
+                Toast.makeText(mContext, "You chose to cook " + element.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);
+                gotoRecipe.putExtra("recipe_id", element.getId());
+                mContext.startActivity(gotoRecipe);
+            }
+        });*/
+
+        /*public rx.Observable<Recipe> getPositionClicks(){
+            return onClickSubject.asObservable();
+        }
+*/
     }
 
     /**

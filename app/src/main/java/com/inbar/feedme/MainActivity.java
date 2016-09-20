@@ -38,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Set backdrop image
         try {
-            Glide.with(this).load(R.drawable.rec_default).into((ImageView) findViewById(R.id.backdrop));
+            Glide.with(this)
+                    .load(R.drawable.rec_default)
+                    .centerCrop()
+                    .placeholder(R.drawable.feedme)
+                    .crossFade()
+                    .into((ImageView) findViewById(R.id.backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,37 +126,37 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.rec_cheese_toast,
                 R.drawable.rec_shakshuka};
 
-        Recipe a = new Recipe("Israeli Salad", 5, covers[0]);
+        Recipe a = new Recipe(0, "Israeli Salad", 5, covers[0]);
         recipeList.add(a);
 
-        a = new Recipe("Scrambled Eggs", 5, covers[1]);
+        a = new Recipe(1, "Scrambled Eggs", 5, covers[1]);
         recipeList.add(a);
 
-        a = new Recipe("Kushkush Pasta", 12, covers[2]);
+        a = new Recipe(2, "Kushkush Pasta", 12, covers[2]);
         recipeList.add(a);
 
-        a = new Recipe("Kichri Rice", 30, covers[3]);
+        a = new Recipe(3, "Kichri Rice", 30, covers[3]);
         recipeList.add(a);
 
-        a = new Recipe("Kubbeh Hamusta", 60, covers[4]);
+        a = new Recipe(4, "Kubbeh Hamusta", 60, covers[4]);
         recipeList.add(a);
 
-        a = new Recipe("Red Kubbeh", 60, covers[5]);
+        a = new Recipe(5, "Red Kubbeh", 60, covers[5]);
         recipeList.add(a);
 
-        a = new Recipe("Beet Kubbeh", 60, covers[6]);
+        a = new Recipe(6, "Beet Kubbeh", 60, covers[6]);
         recipeList.add(a);
 
-        a = new Recipe("Onion Soup", 120, covers[7]);
+        a = new Recipe(7, "Onion Soup", 120, covers[7]);
         recipeList.add(a);
 
-        a = new Recipe("Mashed Fruits", 15, covers[8]);
+        a = new Recipe(8, "Mashed Fruits", 15, covers[8]);
         recipeList.add(a);
 
-        a = new Recipe("Cheese Toast", 17, covers[9]);
+        a = new Recipe(9, "Cheese Toast", 17, covers[9]);
         recipeList.add(a);
 
-        a = new Recipe("Shakshukah", 40, covers[9]);
+        a = new Recipe(10, "Shakshukah", 40, covers[10]);
         recipeList.add(a);
 
         adapter.notifyDataSetChanged();

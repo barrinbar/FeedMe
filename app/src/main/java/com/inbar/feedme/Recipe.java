@@ -9,6 +9,7 @@ import java.util.Map;
  * Created by Inbar on 9/15/2016.
  */
 public class Recipe {
+    private long id;
     private String title;
     private int prepTime;
     private boolean favorite;
@@ -16,14 +17,20 @@ public class Recipe {
     private ArrayList<String> ingredients;
     private ArrayList<String> instructions;
 
-    public Recipe() {
-    }
-
-    public Recipe(String title, int prepTime, int thumbnail) {
+    public Recipe(long id, String title, int prepTime, int thumbnail) {
+        this.id = id;
         this.title = title;
         this.prepTime = prepTime;
         this.thumbnail = thumbnail;
         this.favorite = false;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -50,7 +57,7 @@ public class Recipe {
         this.favorite = favorite;
     }
 
-    public boolean getFavorite() {
+    public boolean isFavorite() {
         return favorite;
     }
 
@@ -83,34 +90,18 @@ public class Recipe {
     }
 
     public boolean removeIngredient(String ingredient) {
-        if (ingredients.contains(ingredient))
-            ingredients.remove(ingredient);
-        else
-            return false;
-        return true;
+        return ingredients.remove(ingredient);
     }
 
     public boolean removeIngredient(int index) {
-        if (ingredients.size() >= index)
-            ingredients.remove(index);
-        else
-            return false;
-        return true;
+        return (ingredients.remove(index) != null);
     }
 
     public boolean removeInstruction(String instruction) {
-        if (ingredients.contains(instruction))
-            ingredients.remove(instruction);
-        else
-            return false;
-        return true;
+        return ingredients.remove(instruction);
     }
 
     public boolean removeInstruction(int index) {
-        if (ingredients.size() >= index)
-            ingredients.remove(index);
-        else
-            return false;
-        return true;
+        return ingredients.remove(index) != null;
     }
 }

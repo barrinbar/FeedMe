@@ -2,22 +2,47 @@ package com.inbar.feedme;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class RecipeActivity extends BaseActivity {
+public class RecipeActivity extends AppCompatActivity {
+
+    Recipe recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-        loadRecipe();
+        Intent intent  = getIntent();
+
+        // Make sure user reached this acivity properly with an intended recipe
+        if (intent.hasExtra("recipe_id")) {
+            long recipeID = intent.getLongExtra("recipe_id",0);
+            Log.i("FEEDME", "Loading recipe #" + recipeID);
+            loadRecipe(recipeID);
+        }
+        else
+            new AlertDialog.Builder(this)
+                    .setTitle("Recipe not found")
+                    .setMessage("No recipe chosen\nplease choose a recipe from the list")
+                    .setCancelable(false)
+                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).show();
     }
 
     @Override
@@ -66,7 +91,7 @@ public class RecipeActivity extends BaseActivity {
         }
     }
 
-    public void loadRecipe() {
+    public void loadRecipe(long id) {
         ImageView imgRecipePhoto = (ImageView)findViewById(R.id.recipe_photo);
         TextView txtTitle = (TextView)findViewById(R.id.recipe_title);
         TextView txtPrepMins = (TextView)findViewById(R.id.prep_minutes);
