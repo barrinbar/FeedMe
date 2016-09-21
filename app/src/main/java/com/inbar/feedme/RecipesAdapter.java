@@ -62,7 +62,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Recipe element = recipeList.get(position);
 
-        holder.title.setText(element.getTitle());
+        holder.title.setText(element.getName());
         Resources res = mContext.getResources();
         String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, element.getPrepTime(), element.getPrepTime());
         holder.time.setText(prepTime);
@@ -84,8 +84,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("FEEDME", element.getTitle() + " holder clicked in Recycler view");
-                Toast.makeText(mContext, "You chose to cook " + element.getTitle(), Toast.LENGTH_SHORT).show();
+                Log.i("FEEDME", element.getName() + " holder clicked in Recycler view");
+                Toast.makeText(mContext, "You chose to cook " + element.getName(), Toast.LENGTH_SHORT).show();
 
                 Gson gson = new Gson();
                 Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);

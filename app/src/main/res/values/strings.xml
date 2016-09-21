@@ -17,4 +17,41 @@
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
     </plurals>
+
+    <plurals name="grams">
+        <item quantity="one">%d gram</item>
+        <item quantity="other">%d grams</item>
+    </plurals>
+    <plurals name="cups">
+        <item quantity="one">%d cup</item>
+        <item quantity="other">%d cups</item>
+    </plurals>
+    <plurals name="tbsps">
+        <item quantity="one">%d tbsp</item>
+        <item quantity="other">%d tbsps</item>
+    </plurals>
+    <plurals name="tsps">
+        <item quantity="one">%d tsp</item>
+        <item quantity="other">%d tsps</item>
+    </plurals>
+    <plurals name="liter">
+        <item quantity="one">%d liter</item>
+        <item quantity="other">%d liters</item>
+    </plurals>
+    <plurals name="ml">
+        <item quantity="one">%d ml</item>
+        <item quantity="other">%d ml</item>
+    </plurals>
+    <plurals name="oz">
+        <item quantity="one">%d oz</item>
+        <item quantity="other">%d oz</item>
+    </plurals>
+    <plurals name="pints">
+        <item quantity="one">%d pint</item>
+        <item quantity="other">%d pints</item>
+    </plurals>
+    <plurals name="quarts">
+        <item quantity="one">%d quart</item>
+        <item quantity="other">%d quarts</item>
+    </plurals>
 </resources>

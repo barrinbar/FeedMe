@@ -11,16 +11,16 @@ import java.util.Map;
  */
 public class Recipe implements Serializable {
     private long id;
-    private String title;
+    private String name;
     private int prepTime;
     private boolean favorite;
     private int thumbnail;
     private ArrayList<String> ingredients;
     private ArrayList<String> instructions;
 
-    public Recipe(long id, String title, int prepTime, int thumbnail) {
+    public Recipe(long id, String name, int prepTime, int thumbnail) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.prepTime = prepTime;
         this.thumbnail = thumbnail;
         this.favorite = false;
@@ -34,12 +34,12 @@ public class Recipe implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPrepTime() {

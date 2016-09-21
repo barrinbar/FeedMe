@@ -36,7 +36,7 @@ public class RecipeActivity extends AppCompatActivity {
             Gson gson = new Gson();
             String strRecipe = getIntent().getStringExtra("recipe");
             recipe = gson.fromJson(strRecipe, Recipe.class);
-            Log.i("FEEDME", "Loading recipe " + recipe.getTitle());
+            Log.i("FEEDME", "Loading recipe " + recipe.getName());
             loadRecipe();
         }
         else
@@ -113,7 +113,7 @@ public class RecipeActivity extends AppCompatActivity {
                 .crossFade()
                 .into(imgRecipePhoto);
 
-        txtTitle.setText(recipe.getTitle());
+        txtTitle.setText(recipe.getName());
 
         Resources res = getResources();
         String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, recipe.getPrepTime(), recipe.getPrepTime());
