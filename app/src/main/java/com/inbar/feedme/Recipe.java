@@ -1,5 +1,6 @@
 package com.inbar.feedme;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 /**
  * Created by Inbar on 9/15/2016.
  */
-public class Recipe {
+public class Recipe implements Serializable {
     private long id;
     private String title;
     private int prepTime;

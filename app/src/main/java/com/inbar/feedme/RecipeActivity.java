@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -17,9 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
 public class RecipeActivity extends AppCompatActivity {
 
-    Recipe recipe;
+    private Recipe recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +32,12 @@ public class RecipeActivity extends AppCompatActivity {
         Intent intent  = getIntent();
 
         // Make sure user reached this acivity properly with an intended recipe
-        if (intent.hasExtra("recipe_id")) {
-            long recipeID = intent.getLongExtra("recipe_id",0);
-            Log.i("FEEDME", "Loading recipe #" + recipeID);
-            loadRecipe(recipeID);
+        if (intent.hasExtra("recipe")) {
+            Gson gson = new Gson();
+            String strRecipe = getIntent().getStringExtra("recipe");
+            recipe = gson.fromJson(strRecipe, Recipe.class);
+            Log.i("FEEDME", "Loading recipe " + recipe.getTitle());
+            loadRecipe();
         }
         else
             new AlertDialog.Builder(this)
@@ -69,13 +75,15 @@ public class RecipeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_add_favourite: {
-                if (item.getIcon().equals(R.drawable.ic_favorite_white_18dp)) {
+                if (recipe.isFavorite()) {
                     item.setIcon(R.drawable.ic_favorite_border_white_18dp);
-                    // TODO: remove from user favorites
+                    item.setTitle(R.string.remove_from_favorites);
+                    recipe.setFavorite(false);
                 }
                 else {
                     item.setIcon(R.drawable.ic_favorite_white_18dp);
-                    // TODO: add to user favorites
+                    item.setTitle(R.string.add_to_favorites);
+                    recipe.setFavorite(true);
                 }
                 return true;
             }
@@ -91,11 +99,30 @@ public class RecipeActivity extends AppCompatActivity {
         }
     }
 
-    public void loadRecipe(long id) {
+    public void loadRecipe() {
         ImageView imgRecipePhoto = (ImageView)findViewById(R.id.recipe_photo);
         TextView txtTitle = (TextView)findViewById(R.id.recipe_title);
         TextView txtPrepMins = (TextView)findViewById(R.id.prep_minutes);
         ImageView imgFavIcon = (ImageView)findViewById(R.id.img_fav);
+
+        // loading picture using Glide library
+        Glide.with(this).load(recipe.getThumbnail())
+                .centerCrop()
+                .placeholder(R.drawable.feedme)
+                .error(R.drawable.rec_default)
+                .crossFade()
+                .into(imgRecipePhoto);
+
+        txtTitle.setText(recipe.getTitle());
+
+        Resources res = getResources();
+        String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, recipe.getPrepTime(), recipe.getPrepTime());
+        txtPrepMins.setText(prepTime);
+
+        if (recipe.isFavorite())
+            imgFavIcon.setImageResource(R.drawable.ic_favorite_holo_dark);
+        else
+            imgFavIcon.setImageResource(R.drawable.ic_favorite_border_holo_dark);
     }
 
     public void gotoStory(View view) {

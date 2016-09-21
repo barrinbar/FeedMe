@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -64,7 +65,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
         holder.title.setText(element.getTitle());
         Resources res = mContext.getResources();
         String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, element.getPrepTime(), element.getPrepTime());
-
         holder.time.setText(prepTime);
 
         // loading picture using Glide library
@@ -86,8 +86,10 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
             public void onClick(View view) {
                 Log.i("FEEDME", element.getTitle() + " holder clicked in Recycler view");
                 Toast.makeText(mContext, "You chose to cook " + element.getTitle(), Toast.LENGTH_SHORT).show();
+
+                Gson gson = new Gson();
                 Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);
-                gotoRecipe.putExtra("recipe_id", element.getId());
+                gotoRecipe.putExtra("recipe", gson.toJson(element));
                 mContext.startActivity(gotoRecipe);
             }
         });
