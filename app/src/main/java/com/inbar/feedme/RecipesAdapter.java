@@ -20,8 +20,8 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-import rx.subjects.PublishSubject;
-import rx.Observable;
+/*import rx.subjects.PublishSubject;
+import rx.Observable;*/
 
 /**
  * Created by Barr Inbar on 9/15/2016.
@@ -30,7 +30,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
 
     private Context mContext;
     private List<Recipe> recipeList;
-    private final PublishSubject<Recipe> onClickSubject = PublishSubject.create();
+    //private final PublishSubject<Recipe> onClickSubject = PublishSubject.create();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, time;

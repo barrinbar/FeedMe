@@ -16,9 +16,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import graphql.ExecutionResult;
+import graphql.GraphQL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -160,6 +166,46 @@ public class MainActivity extends AppCompatActivity {
         recipeList.add(a);
 
         adapter.notifyDataSetChanged();
+    }
+
+    private void loadRecipes() {
+        // Fetch recipes from DB
+
+        /*String query = "query sample ($id: Long = 0, $name: String, prepTime: Integer, drawableThumb: Integer)";
+
+        *//*Map<String, Object> arguments = new HashMap<String, Object>();
+        arguments.put("id", "2");*//*
+        Map<String, Object> schema = (Map<String, Object>)new GraphQL(FeedmeSchema.feedMeSchema).execute(query).getData();
+
+        Map<String, Object> schemaParts = (Map<String, Map>) schema.get("__schema")
+        for (node : schemaParts.values()) {
+            ((Map<String, String>)node)
+            schemaParts.get('queryType').size() == 1
+            schemaParts.get('mutationType') == null
+            schemaParts.get('subscriptionType') == null
+            schemaParts.get('types').size() == 15
+            schemaParts.get('directives').size() == 2
+        }
+
+        for (Object node : result.values()) {
+            node.instanceof Recipe ? ((Recipe) node) : null;
+        }
+
+        adapter.notifyDataSetChanged();*/
+    }
+
+    private Recipe fetchRecipe(long id) {
+        String query = "recipeQuery($id: String!)" +
+                        "{" +
+                            "recipe(id: $id) " +
+                                "{id, name, prepTime, thumbnail, favorite, ingredients, instructions, story}" +
+                        "}";
+        String params = "[" +
+                        "id: '" + id + "'" +
+                        "]";
+        String result = (String)new GraphQL(FeedmeSchema.feedMeSchema).execute(query, null, params).getData();
+        Gson gson = new Gson();
+        return gson.fromJson(result, Recipe.class);
     }
 
     /**

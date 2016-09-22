@@ -1,6 +1,9 @@
 package com.inbar.feedme;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import graphql.schema.*;
 
 import static graphql.Scalars.GraphQLBoolean;
@@ -11,44 +14,52 @@ import static graphql.Scalars.GraphQLString;
 import static graphql.schema.GraphQLArgument.newArgument;
 import static graphql.schema.GraphQLEnumType.newEnum;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
-import static graphql.schema.GraphQLInterfaceType.newInterface;
 import static graphql.schema.GraphQLObjectType.newObject;
 
 /**
  * Created by Inbar on 9/21/2016.
+ *
+ * https://github.com/graphql-java/graphql-java
+ * https://github.com/chentsulin/awesome-graphql
+ * https://github.com/graphql-java/graphql-java/blob/master/src/test/groovy/graphql/StarWarsSchema.java
+ * https://github.com/graphql-java/graphql-java/blob/master/src/test/groovy/graphql/GarfieldSchema.java
+ *
+ * TODO: Check why I need build() in every field
  */
 
 public class FeedmeSchema {
 
     public static GraphQLEnumType unitsEnum = newEnum()
             .name("Units")
-            .description("Measurment units for ingredients")
-            .value("cups", 0, "Cups")
-            .value("tbsps", 1, "Table spoons")
-            .value("tsps", 2, "Teaspoons")
-            .value("drops", 3, "Drops")
-            .value("ml", 4, "Milliliters")
-            .value("liter", 6, "Liter")
-            .value("fl oz", 5, "Fluid Ounces")
-            .value("pints", 7, "Pints")
-            .value("quarts", 8, "Quarts")
-            .value("gallons", 8, "Gallons")
-            .value("mg", 9, "Milligrams")
-            .value("g", 10, "Grams")
-            .value("kg", 11, "Kilograms")
-            .value("oz", 12, "Ounces")
-            .value("pounds", 13, "Pounds")
-            .value("\"", 14, "Inches")
-            .value("cm", 15, "Centimeters")
-            .value("dash", 16, "/Dash - a very small pinch")
-            .value("pinch", 17, "Pinch")
-            .value("cel", 18, "Degrees Celsius")
-            .value("far", 19, "Degrees Fahrenheits")
+            .description("Measurement units for ingredients")
+            .value("cups",      0, "Cups")
+            .value("tbsps",     1, "Table spoons")
+            .value("tsps",      2, "Teaspoons")
+            .value("drops",     3, "Drops")
+            .value("ml",        4, "Milliliters")
+            .value("liter",     5, "Liter")
+            .value("fl oz",     6, "Fluid Ounces")
+            .value("pints",     7, "Pints")
+            .value("quarts",    8, "Quarts")
+            .value("gallons",   9, "Gallons")
+            .value("mg",        10, "Milligrams")
+            .value("g",         11, "Grams")
+            .value("kg",        12, "Kilograms")
+            .value("oz",        13, "Ounces")
+            .value("pounds",    14, "Pounds")
+            .value("\"",        15, "Inches")
+            .value("cm",        16, "Centimeters")
+            .value("dash",      17, "Dash - a very small pinch")
+            .value("pinch",     18, "Pinch")
+            .value("cel",       19, "Degrees Celsius")
+            .value("far",       20, "Degrees Fahrenheits")
+            .value("unit",      21, "General unit")
+            .value("bundle",    22, "General unit")
             .build();
 
-
     public static GraphQLObjectType ingredientType = newObject()
-            .name("Ingrdient")
+            .name("Ingredient")
+            .description("A composed ingredient")
             .field(newFieldDefinition()
                     .name("name")
                     .type(GraphQLString)
@@ -63,17 +74,47 @@ public class FeedmeSchema {
                     .build())
             .build();
 
+    public static GraphQLObjectType storyType = newObject()
+            .name("Story")
+            .description("A story")
+            .field(newFieldDefinition()
+                    .name("id")
+                    .description("Story id.")
+                    .type(new GraphQLNonNull(GraphQLLong))
+                    .build())
+            .field(newFieldDefinition()
+                    .name("name")
+                    .description("The name of the story.")
+                    .type(GraphQLString)
+                    .build())
+            .field(newFieldDefinition()
+                    .name("author")
+                    .description("The author(s) of the story.")
+                    .type(GraphQLString)
+                    .build())
+            .field(newFieldDefinition()
+                    .name("thumbnail")
+                    .description("The ID of the drawable thumbnail.")
+                    .type(GraphQLInt)
+                    .build())
+            .field(newFieldDefinition()
+                    .name("paragraphs")
+                    .description("List of paragraphs.")
+                    .type(new GraphQLList(GraphQLString))
+                    .build())
+            .build();
+
     public static GraphQLObjectType recipeType = newObject()
             .name("Recipe")
             .description("A recipe")
             .field(newFieldDefinition()
                     .name("id")
-                    .description("The id of the recipe.")
+                    .description("Recipe id.")
                     .type(new GraphQLNonNull(GraphQLLong))
                     .build())
             .field(newFieldDefinition()
                     .name("name")
-                    .description("The name of the recipe.")
+                    .description("Recipe name.")
                     .type(GraphQLString)
                     .build())
             .field(newFieldDefinition()
@@ -82,8 +123,8 @@ public class FeedmeSchema {
                     .type(GraphQLInt)
                     .build())
             .field(newFieldDefinition()
-                    .name("drawableThumbnail")
-                    .description("The ID of the drawable thumbnail.")
+                    .name("thumbnail")
+                    .description("ID of the drawable thumbnail.")
                     .type(GraphQLInt)
                     .build())
             .field(newFieldDefinition()
@@ -101,119 +142,49 @@ public class FeedmeSchema {
                     .description("List of instructions.")
                     .type(new GraphQLList(GraphQLString))
                     .build())
+            .field(newFieldDefinition()
+                    .name("recipe")
+                    .description("Related recipe.")
+                    .type(storyType)
+                    .build())
             .build();
 
-    public static GraphQLObjectType storyType = newObject()
-            .name("Story")
-            .description("A story")
-            .field(newFieldDefinition()
-                    .name("id")
-                    .description("The id of the story.")
-                    .type(new GraphQLNonNull(GraphQLLong))
-                    .build())
-            .field(newFieldDefinition()
-                    .name("name")
-                    .description("The name of the story.")
-                    .type(GraphQLString)
-                    .build())
-            .field(newFieldDefinition()
-                    .name("readTime")
-                    .description("The time it takes to read ths story.")
-                    .type(GraphQLInt)
-                    .build())
-            .field(newFieldDefinition()
-                    .name("drawableThumbnail")
-                    .description("The ID of the drawable thumbnail.")
-                    .type(GraphQLInt)
-                    .build())
-            .field(newFieldDefinition()
-                    .name("paragraphs")
-                    .description("List of paragraphs.")
-                    .type(new GraphQLList(GraphQLString))
-                    .build())
-            .build();
-/*
-    public static GraphQLObjectType humanType = newObject()
-            .name("Human")
-            .description("A humanoid creature in the Star Wars universe.")
-            .withInterface(recipeInterface)
-            .field(newFieldDefinition()
-                    .name("id")
-                    .description("The id of the human.")
-                    .type(new GraphQLNonNull(GraphQLString)))
-            .field(newFieldDefinition()
-                    .name("name")
-                    .description("The name of the human.")
-                    .type(GraphQLString))
-            .field(newFieldDefinition()
-                    .name("friends")
-                    .description("The friends of the human, or an empty list if they have none.")
-                    .type(new GraphQLList(recipeInterface))
-                    .dataFetcher(StarWarsData.getFriendsDataFetcher()))
-            .field(newFieldDefinition()
-                    .name("appearsIn")
-                    .description("Which movies they appear in.")
-                    .type(new GraphQLList(episodeEnum)))
-            .field(newFieldDefinition()
-                    .name("homePlanet")
-                    .description("The home planet of the human, or null if unknown.")
-                    .type(GraphQLString))
-            .build();
+    public static List<GraphQLArgument> recipeArgs() {
+        List<GraphQLArgument> args = new ArrayList<>();
 
-    public static GraphQLObjectType droidType = newObject()
-            .name("Droid")
-            .description("A mechanical creature in the Star Wars universe.")
-            .withInterface(recipeInterface)
-            .field(newFieldDefinition()
-                    .name("id")
-                    .description("The id of the droid.")
-                    .type(new GraphQLNonNull(GraphQLString)))
-            .field(newFieldDefinition()
-                    .name("name")
-                    .description("The name of the droid.")
-                    .type(GraphQLString))
-            .field(newFieldDefinition()
-                    .name("friends")
-                    .description("The friends of the droid, or an empty list if they have none.")
-                    .type(new GraphQLList(recipeInterface))
-                    .dataFetcher(FeedMeData.getFriendsDataFetcher()))
-            .field(newFieldDefinition()
-                    .name("appearsIn")
-                    .description("Which movies they appear in.")
-                    .type(new GraphQLList(episodeEnum)))
-            .field(newFieldDefinition()
-                    .name("primaryFunction")
-                    .description("The primary function of the droid.")
-                    .type(GraphQLString))
-            .build();
-*/
+        args.add(newArgument()
+                .name("id")
+                .type(GraphQLLong)
+                .build());
+
+        return args;
+    }
+
+    public static List<GraphQLArgument> storyArgs() {
+        List<GraphQLArgument> args = new ArrayList<>();
+
+        args.add(newArgument()
+                .name("id")
+                .type(GraphQLLong)
+                .build());
+
+        return args;
+    }
 
     public static GraphQLObjectType queryType = newObject()
             .name("QueryType")
             .field(newFieldDefinition()
                     .name("recipe")
                     .type(recipeType)
-                    .argument(newArgument()
-                            .name("id")
-                            .description("id of the recipe.")
-                            .type(new GraphQLNonNull(GraphQLLong)))
-                    .dataFetcher(FeedMeData.getRecipeDataFetcher()))
+                    .argument(recipeArgs())
+                    .dataFetcher(FeedMeData.getRecipeDataFetcher())
+                    .build())
             .field(newFieldDefinition()
                     .name("story")
                     .type(storyType)
-                    .argument(newArgument()
-                            .name("id")
-                            .description("id of the story")
-                            .type(new GraphQLNonNull(GraphQLString)))
-                    .dataFetcher(FeedMeData.getStoryDataFetcher()))
-            /*.field(newFieldDefinition()
-                    .name("droid")
-                    .type(droidType)
-                    .argument(newArgument()
-                            .name("id")
-                            .description("id of the droid")
-                            .type(new GraphQLNonNull(GraphQLString)))
-                    .dataFetcher(FeedMeData.getDroidDataFetcher()))*/
+                    .argument(storyArgs())
+                    .dataFetcher(FeedMeData.getStoryDataFetcher())
+                    .build())
             .build();
 
 
