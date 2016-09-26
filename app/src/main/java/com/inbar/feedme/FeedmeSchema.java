@@ -187,7 +187,6 @@ public class FeedmeSchema {
                     .build())
             .build();
 
-
     public static GraphQLSchema feedMeSchema = GraphQLSchema.newSchema()
             .query(queryType)
             .build();

@@ -541,9 +541,173 @@ class FeedMeData {
                                    'trough below, and there he was drowned.']]
     ];
 
+
+    static def cinderella = [
+            id         : '2002',
+            name       : 'CINDERELLA',
+            author     : 'Jacob Grimm and Wilhelm Grimm',
+            thumbnail  : R.drawable.sto_cinderella,
+            paragraphs : [['The wife of a rich man fell sick: and when she felt that her end drew\n' +
+                                  'nigh, she called her only daughter to her bedside, and said, "Always be\n' +
+                                  'a good girl, and I will look down from heaven and watch over you." Soon\n' +
+                                  'afterwards she shut her eyes and died, and was buried in the garden; and\n' +
+                                  'the little girl went every day to her grave and wept, and was always\n' +
+                                  'good and kind to all about her. And the snow spread a beautiful white\n' +
+                                  'covering over the grave; but by the time the sun had melted it away\n' +
+                                  'again, her father had married another wife. This new wife had two\n' +
+                                  'daughters of her own: they were fair in face but foul at heart, and it\n' +
+                                  'was now a sorry time for the poor little girl. "What does the\n' +
+                                  'good-for-nothing thing want in the parlor?" said they; and they took\n' +
+                                  'away her fine clothes, and gave her an old frock to put on, and laughed\n' +
+                                  'at her and turned her into the kitchen.\n'],
+                          ['Then she was forced to do hard work; to rise early, before daylight, to\n' +
+                                  'bring the water, to make the fire, to cook and to wash. She had no bed\n' +
+                                  'to lie down on, but was made to lie by the hearth among the ashes, and\n' +
+                                  'they called her Cinderella.\n'],
+                          ['It happened once that her father was going to the fair, and asked his\n' +
+                                  'wife\'s daughters what he should bring to them. "Fine clothes," said the\n' +
+                                  'first. "Pearls and diamonds," said the second. "Now, child," said he to\n' +
+                                  'his own daughter, "what will you have?" "The first sprig, dear father,\n' +
+                                  'that rubs against your hat on your way home," said she. Then he bought\n' +
+                                  'for the two first the fine clothes and pearls and diamonds they had\n' +
+                                  'asked for: and on his way home, as he rode through a green copse, a\n' +
+                                  'sprig of hazel brushed against him, so he broke it off and when he got\n' +
+                                  'home he gave it to his daughter. Then she took it, and went to her\n' +
+                                  'mother\'s grave and planted it there, and cried so much that it was\n' +
+                                  'watered with her tears; and there it grew and became a fine tree, and\n' +
+                                  'soon a little bird came and built its nest upon the tree, and talked\n' +
+                                  'with her and watched over her, and brought her whatever she wished for.\n'],
+                          ['Now it happened that the king of the land held a feast which was to last\n' +
+                                  'three days, and out of those who came to it his son was to choose a\n' +
+                                  'bride for himself; and Cinderella\'s two sisters were asked to come. So\n' +
+                                  'they called Cinderella, and said, "Now, comb our hair, brush our shoes,\n' +
+                                  'and tie our sashes for us, for we are going to dance at the king\'s\n' +
+                                  'feast." Then she did as she was told, but when all was done she could\n' +
+                                  'not help crying, for she thought to herself, she would have liked to go\n' +
+                                  'to the dance too, and at last she begged her mother very hard to let her\n' +
+                                  'go, "You! Cinderella?" said she; "you who have nothing to wear, no\n' +
+                                  'clothes at all, and who cannot even dance--you want to go to the ball?"\n' +
+                                  'And when she kept on begging, to get rid of her, she said at last, "I\n' +
+                                  'will throw this basinful of peas into the ash heap, and if you have\n' +
+                                  'picked them all out in two hours\' time you shall go to the feast too."\n' +
+                                  'Then she threw the peas into the ashes; but the little maiden ran out at\n' +
+                                  'the back door into the garden, and cried out--\n'],
+                          ['  "Hither, thither, through the sky, turtle-doves and linnets, fly!\n' +
+                                  '  Blackbird, thrush, and chaffinch gay, hither, thither, haste away!\n' +
+                                  '  One and all, come, help me quick! haste ye, haste ye--pick, pick,\n' +
+                                  '  pick!"\n'],
+                          ['Then first came two white doves; and next two turtle-doves; and after\n' +
+                                  'them all the little birds under heaven came, and the little doves\n' +
+                                  'stooped their heads down and set to work, pick, pick, pick; and then the\n' +
+                                  'others began to pick, pick, pick, and picked out all the good grain and\n' +
+                                  'put it into a dish, and left the ashes. At the end of one hour the work\n' +
+                                  'was done, and all flew out again at the windows. Then she brought the\n' +
+                                  'dish to her mother. But the mother said, "No, no! indeed, you have no\n' +
+                                  'clothes and cannot dance; you shall not go." And when Cinderella begged\n' +
+                                  'very hard to go, she said, "If you can in one hour\'s time pick two of\n' +
+                                  'these dishes of pease out of the ashes, you shall go too." So she shook\n' +
+                                  'two dishes of peas into the ashes; but the little maiden went out into\n' +
+                                  'the garden at the back of the house, and called as before and all the\n' +
+                                  'birds came flying, and in half an hour\'s time all was done, and out they\n' +
+                                  'flew again. And then Cinderella took the dishes to her mother, rejoicing\n' +
+                                  'to think that she should now go to the ball. But her mother said, "It is\n' +
+                                  'all of no use, you cannot go; you have no clothes, and cannot dance; and\n' +
+                                  'you would only put us to shame;" and off she went with her two daughters\n' +
+                                  'to the feast.\n'],
+                          ['Now when all were gone, and nobody left at home, Cinderella went\n' +
+                                  'sorrowfully and sat down under the hazel-tree, and cried out--\n'],
+                          ['  "Shake, shake, hazel-tree, gold and silver over me!"\n'],
+                          ['Then her friend the bird flew out of the tree and brought a gold and\n' +
+                                  'silver dress for her, and slippers of spangled silk; and she put them\n' +
+                                  'on, and followed her sisters to the feast. But they did not know her,\n' +
+                                  'she looked so fine and beautiful in her rich clothes.\n'],
+                          ['The king\'s son soon came up to her, and took her by the hand and danced\n' +
+                                  'with her and no one else; and he never left her hand, but when any one\n' +
+                                  'else came to ask her to dance, he said, "This lady is dancing with me."\n' +
+                                  'Thus they danced till a late hour of the night, and then she wanted to\n' +
+                                  'go home; and the king\'s son said, "I shall go and take care of you to\n' +
+                                  'your home," for he wanted to see where the beautiful maid lived. But she\n' +
+                                  'slipped away from him unawares, and ran off towards home, and the prince\n' +
+                                  'followed her; then she jumped up into the pigeon-house and shut the\n' +
+                                  'door. So he waited till her father came home, and told him that the\n' +
+                                  'unknown maiden who had been at the feast had hidden herself in the\n' +
+                                  'pigeon-house. But when they had broken open the door they found no one\n' +
+                                  'within; and as they came back into the house, Cinderella lay, as she\n' +
+                                  'always did, in her dirty frock by the ashes; for she had run as quickly\n' +
+                                  'as she could through the pigeon-house and on to the hazel-tree, and had\n' +
+                                  'there taken off her beautiful clothes, and laid them beneath the tree,\n' +
+                                  'that the bird might carry them away; and had seated herself amid the\n' +
+                                  'ashes again in her little old frock.\n'],
+                          ['The next day, when the feast was again held, and her father, mother and\n' +
+                                  'sisters were gone, Cinderella went to the hazel-tree, and all happened\n' +
+                                  'as the evening before.\n'],
+                          ['The king\'s son, who was waiting for her, took her by the hand and danced\n' +
+                                  'with her; and, when any one asked her to dance, he said as before, "This\n' +
+                                  'lady is dancing with me." When night came she wanted to go home; and the\n' +
+                                  'king\'s son went with her, but she sprang away from him all at once into\n' +
+                                  'the garden behind her father\'s house. In this garden stood a fine large\n' +
+                                  'pear-tree; and Cinderella jumped up into it without being seen. Then the\n' +
+                                  'king\'s son waited till her father came home, and said to him, "The\n' +
+                                  'unknown lady has slipped away, and I think she must have sprung into the\n' +
+                                  'pear-tree." The father ordered an axe to be brought, and they cut down\n' +
+                                  'the tree, but found no one upon it. And when they came back into the\n' +
+                                  'kitchen, there lay Cinderella in the ashes as usual; for she had slipped\n' +
+                                  'down on the other side of the tree, and carried her beautiful clothes\n' +
+                                  'back to the bird at the hazel-tree, and then put on her little old\n' +
+                                  'frock.\n'],
+                          ['The third day, when her father and mother and sisters were gone, she\n' +
+                                  'went again into the garden, and said--\n'],
+                          ['  "Shake, shake, hazel-tree, gold and silver over me!"\n'],
+                          ['Then her kind friend the bird brought a dress still finer than the\n' +
+                                  'former one, and slippers which were all of gold; and the king\'s son\n' +
+                                  'danced with her alone, and when any one else asked her to dance, he\n' +
+                                  'said, "This lady is my partner." Now when night came she wanted to go\n' +
+                                  'home; and the king\'s son would go with her, but she managed to slip away\n' +
+                                  'from him, though in such a hurry that she dropped her left golden\n' +
+                                  'slipper upon the stairs.\n'],
+                          ['So the prince took the shoe, and went the next day to the king, his\n' +
+                                  'father, and said, "I will take for my wife the lady that this golden\n' +
+                                  'shoe fits."\n'],
+                          ['Then both the sisters were overjoyed to hear this; for they had\n' +
+                                  'beautiful feet, and had no doubt that they could wear the golden\n' +
+                                  'slipper. The eldest went first into the room where the slipper was, and\n' +
+                                  'wanted to try it on, and the mother stood by. But her big toe could not\n' +
+                                  'go into it, and the shoe was altogether much too small for her. Then the\n' +
+                                  'mother said, "Never mind, cut it off. When you are queen you will not\n' +
+                                  'care about toes; you will not want to go on foot." So the silly girl cut\n' +
+                                  'her big toe off, and squeezed the shoe on, and went to the king\'s son.\n' +
+                                  'Then he took her for his bride, and rode away with her.\n'],
+                          ['But on their way home they had to pass by the hazel-tree that Cinderella\n' +
+                                  'had planted, and there sat a little dove on the branch, singing--\n'],
+                          ['  "Back again! back again! look to the shoe!\n' +
+                                  '  The shoe is too small, and not made for you!\n' +
+                                  '  Prince! prince! look again for thy bride,\n' +
+                                  '  For she\'s not the true one that sits by thy side."\n'],
+                          ['Then the prince looked at her foot, and saw by the blood that streamed\n' +
+                                  'from it what a trick she had played him. So he brought the false bride\n' +
+                                  'back to her home, and said, "This is not the right bride; let the other\n' +
+                                  'sister try and put on the slipper." Then she went into the room and got\n' +
+                                  'her foot into the shoe, all but the heel, which was too large. But her\n' +
+                                  'mother squeezed it in till the blood came, and took her to the king\'s\n' +
+                                  'son; and he rode away with her. But when they came to the hazel-tree,\n' +
+                                  'the little dove sat there still, and sang as before. Then the king\'s son\n' +
+                                  'looked down, and saw that the blood streamed from the shoe. So he\n' +
+                                  'brought her back again also. "This is not the true bride," said he to\n' +
+                                  'the father; "have you no other daughters?"\n'],
+                          ['Then Cinderella came and she took her clumsy shoe off, and put on the\n' +
+                                  'golden slipper, and it fitted as if it had been made for her. And when\n' +
+                                  'he drew near and looked at her face the prince knew her, and said, "This\n' +
+                                  'is the right bride."\n'],
+                          ['Then he took Cinderella on his horse and rode away. And when they came\n' +
+                                  'to the hazel-tree the white dove sang--\n'],
+                          ['  "Prince! prince! take home thy bride,\n' +
+                                  '  For she is the true one that sits by thy side!"']]
+            ]
+
     static def storyData = [
-            "2000": hanselAndGrethel,
-            "2001": littleRedCap
+            '2000': hanselAndGrethel,
+            '2001': littleRedCap,
+            '2002': cinderella
     ]
 
     static DataFetcher storyDataFetcher = new DataFetcher() {

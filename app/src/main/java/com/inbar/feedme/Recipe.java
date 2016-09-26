@@ -18,12 +18,22 @@ public class Recipe implements Serializable {
     private ArrayList<String> ingredients;
     private ArrayList<String> instructions;
 
-    public Recipe(long id, String name, int prepTime, int thumbnail) {
+    public Recipe(long id, String name, int prepTime, int thumbnail, boolean isFavorite) {
         this.id = id;
         this.name = name;
         this.prepTime = prepTime;
         this.thumbnail = thumbnail;
-        this.favorite = false;
+        this.favorite = isFavorite;
+    }
+
+    public Recipe(long id, String name, int prepTime, int thumbnail) {
+        this(id, name, prepTime, thumbnail, false);
+    }
+
+    public Recipe(Recipe recipe) {
+        this(recipe.getId(), recipe.getName(), recipe.getPrepTime(), recipe.getThumbnail(), recipe.isFavorite());
+        this.setIngredients(recipe.getIngredients());
+        this.setInstructions(recipe.getInstructions());
     }
 
     public long getId() {
