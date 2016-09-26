@@ -42,11 +42,10 @@ public class FeedMeContract {
     }
 
     /* Instructions table */
-    public static class InstructionsEntry implements BaseColumns {
+    public static class InstructionEntry implements BaseColumns {
         public static final String TABLE_NAME = "instructions";
         public static final String COL_RECIPE = "recipe";
-        public static final String COL_STEP = "step";
-        public static final String COL_DIRECTION = "instruction";
+        public static final String COL_INSTRUCTION = "instruction";
     }
 
     /* Story Recipe table */

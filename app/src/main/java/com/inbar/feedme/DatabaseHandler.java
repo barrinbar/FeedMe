@@ -33,12 +33,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + IngredientEntry.COL_AMOUNT + " INTEGER, "
             + IngredientEntry.COL_UNITS + " TEXT);";
 
-    private static final String CREATE_TABLE_INSTRUCTIONS = "CREATE TABLE " + InstructionsEntry.TABLE_NAME + "( "
-            + InstructionsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + InstructionsEntry.COL_RECIPE + " INTEGER NOT NULL "
-            + "FOREIGN KEY(" + InstructionsEntry.COL_RECIPE + ") REFERENCES "+ RecipeEntry.TABLE_NAME +"(" + RecipeEntry._ID + "), "
-            + InstructionsEntry.COL_STEP + " INTEGER AUTOINCREMENT, "
-            + InstructionsEntry.COL_DIRECTION + " TEXT);";
+    private static final String CREATE_TABLE_INSTRUCTIONS = "CREATE TABLE " + InstructionEntry.TABLE_NAME + "( "
+            + InstructionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + InstructionEntry.COL_RECIPE + " INTEGER NOT NULL "
+            + "FOREIGN KEY(" + InstructionEntry.COL_RECIPE + ") REFERENCES "+ RecipeEntry.TABLE_NAME +"(" + RecipeEntry._ID + "), "
+            + InstructionEntry.COL_INSTRUCTION+ " TEXT);";
 
     private static final String CREATE_TABLE_STORIES = "CREATE TABLE " + StoryEntry.TABLE_NAME + "( "
             + StoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -60,7 +59,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + IngredientEntry.TABLE_NAME;
 
     private static final String DELETE_TABLE_INSTRUCTIONS =
-            "DROP TABLE IF EXISTS " + InstructionsEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + InstructionEntry.TABLE_NAME;
 
     private static final String DELETE_TABLE_STORIES =
             "DROP TABLE IF EXISTS " + StoryEntry.TABLE_NAME;

@@ -16,27 +16,32 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import graphql.ExecutionResult;
-import graphql.GraphQL;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecipesAdapter adapter;
     private List<Recipe> recipeList;
+    private static boolean init = false;
+    private FeedMeDataSource datasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         configureToolbar();
+
+        datasource = new FeedMeDataSource(this);
+        datasource.open();
+
+        if (!init)
+            createDB();
+
+        loadRecipes();
 
         configureRecyclerView();
 
@@ -53,6 +58,18 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
     }
 
     private void configureToolbar() {
@@ -73,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private void configureRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        recipeList = new ArrayList<>();
+        //recipeList = new ArrayList<>();
         adapter = new RecipesAdapter(this, recipeList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -168,37 +185,20 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void loadRecipes() {
-        // TODO:Fetch recipes from DB
+    private void createDB() {
 
+        // Create recipes
+        for (Recipe recipe : AllData.recipes) {
+            datasource.createRecipe(recipe);
+        }
 
-
-        adapter.notifyDataSetChanged();
+        // TODO: create stories
     }
 
-    private Recipe fetchRecipe(long id) {
+    private void loadRecipes() {
+        recipeList = datasource.getAllRecipes();
 
-        String query = "recipeQuery($recipe: Recipe) {" +
-                " recipe(recipe: $recipe) {" +
-                " id " +
-                " name " +
-                " prepTime " +
-                " thumbnail " +
-                " favorite " +
-                " ingredients {" +
-                "   name " +
-                "   amount " +
-                "   units " +
-                "           } " +
-                " instructions " +
-                " story" +
-                " }" +
-                " }";
-
-        String params = "{id: '" + id + "'}";
-        String result = (String)new GraphQL(FeedmeSchema.feedMeSchema).execute(query, null, params).getData();
-        Gson gson = new Gson();
-        return gson.fromJson(result, Recipe.class);
+        adapter.notifyDataSetChanged();
     }
 
     /**

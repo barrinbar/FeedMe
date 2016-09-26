@@ -15,15 +15,22 @@ public class Recipe implements Serializable {
     private int prepTime;
     private boolean favorite;
     private int thumbnail;
-    private ArrayList<String> ingredients;
+    private ArrayList<Ingredient> ingredients;
     private ArrayList<String> instructions;
 
-    public Recipe(long id, String name, int prepTime, int thumbnail, boolean isFavorite) {
+    public Recipe(long id, String name, int prepTime, int thumbnail, boolean isFavorite,
+                  ArrayList<Ingredient> ingredients, ArrayList<String> instructions) {
         this.id = id;
         this.name = name;
         this.prepTime = prepTime;
         this.thumbnail = thumbnail;
         this.favorite = isFavorite;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+    }
+
+    public Recipe(long id, String name, int prepTime, int thumbnail, boolean isFavorite) {
+        this(id, name, prepTime, thumbnail, isFavorite, null, null);
     }
 
     public Recipe(long id, String name, int prepTime, int thumbnail) {
@@ -84,15 +91,15 @@ public class Recipe implements Serializable {
         this.instructions = instructions;
     }
 
-    public ArrayList<String> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public void addIngredient(String ingredient) {
+    public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
     }
 
