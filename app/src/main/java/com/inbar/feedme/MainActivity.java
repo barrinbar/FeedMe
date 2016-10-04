@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.inbar.feedme.FeedMeContract.LOGCAT_DB;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
         datasource = new FeedMeDataSource(this);
         datasource.open();
 
-        if (!init)
+        if (!init) {
             createDB();
-
-        loadRecipes();
+            init = true;
+        }
 
         configureRecyclerView();
 
-        prepareRecipes();
+        loadRecipes();
 
         // Set backdrop image
         try {
@@ -90,8 +93,10 @@ public class MainActivity extends AppCompatActivity {
     private void configureRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        //recipeList = new ArrayList<>();
+        recipeList = new ArrayList<>();
         adapter = new RecipesAdapter(this, recipeList);
+
+        //loadRecipes();
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -186,19 +191,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createDB() {
+        datasource.recreateDB();
 
         // Create recipes
         for (Recipe recipe : AllData.recipes) {
             datasource.createRecipe(recipe);
         }
+        Log.d(LOGCAT_DB, AllData.recipes.size() + " Recipes created");
 
         // TODO: create stories
     }
 
     private void loadRecipes() {
-        recipeList = datasource.getAllRecipes();
+        for (Recipe recipe : datasource.getAllRecipes())
+            recipeList.add(recipe);
+        Log.d(LOGCAT_DB, "Recipes loaded: " + recipeList.size());
 
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+            Log.d(LOGCAT_DB, "Notified adapter\nTo refresh he recycler view");
+        }
     }
 
     /**

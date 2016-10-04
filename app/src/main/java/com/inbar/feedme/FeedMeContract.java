@@ -13,6 +13,7 @@ public class FeedMeContract {
 
     public static final int FALSE = 0;
     public static final int TRUE = 1;
+    public static final String LOGCAT_DB = "FEEDME_DB";
 
     /* Recipes table */
     public static class RecipeEntry implements BaseColumns {

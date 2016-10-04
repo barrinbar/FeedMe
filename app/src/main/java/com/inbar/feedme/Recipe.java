@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by Inbar on 9/15/2016.
  */
 public class Recipe implements Serializable {
-    private long id;
+    private int id;
     private String name;
     private int prepTime;
     private boolean favorite;
@@ -18,7 +18,7 @@ public class Recipe implements Serializable {
     private ArrayList<Ingredient> ingredients;
     private ArrayList<String> instructions;
 
-    public Recipe(long id, String name, int prepTime, int thumbnail, boolean isFavorite,
+    public Recipe(int id, String name, int prepTime, int thumbnail, boolean isFavorite,
                   ArrayList<Ingredient> ingredients, ArrayList<String> instructions) {
         this.id = id;
         this.name = name;
@@ -29,11 +29,11 @@ public class Recipe implements Serializable {
         this.instructions = instructions;
     }
 
-    public Recipe(long id, String name, int prepTime, int thumbnail, boolean isFavorite) {
+    public Recipe(int id, String name, int prepTime, int thumbnail, boolean isFavorite) {
         this(id, name, prepTime, thumbnail, isFavorite, null, null);
     }
 
-    public Recipe(long id, String name, int prepTime, int thumbnail) {
+    public Recipe(int id, String name, int prepTime, int thumbnail) {
         this(id, name, prepTime, thumbnail, false);
     }
 
@@ -43,11 +43,11 @@ public class Recipe implements Serializable {
         this.setInstructions(recipe.getInstructions());
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
