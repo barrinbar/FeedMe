@@ -70,7 +70,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
         // loading picture using Glide library
         Glide.with(mContext).load(element.getThumbnail())
                 .centerCrop()
-                .placeholder(R.drawable.feedme)
                 .error(R.drawable.rec_default)
                 .crossFade()
                 .into(holder.thumbnail);
@@ -93,23 +92,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
                 mContext.startActivity(gotoRecipe);
             }
         });
-
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickSubject.onNext(element);
-                Log.i("FEEDME", element.getTitle() + " holder clicked in Recycler view");
-                Toast.makeText(mContext, "You chose to cook " + element.getTitle(), Toast.LENGTH_SHORT).show();
-                Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);
-                gotoRecipe.putExtra("recipe_id", element.getId());
-                mContext.startActivity(gotoRecipe);
-            }
-        });*/
-
-        /*public rx.Observable<Recipe> getPositionClicks(){
-            return onClickSubject.asObservable();
-        }
-*/
     }
 
     /**

@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
+import static com.inbar.feedme.FeedMeContract.LOGCAT_DB;
+
 public class RecipeActivity extends AppCompatActivity {
 
     private Recipe recipe;
@@ -104,11 +106,12 @@ public class RecipeActivity extends AppCompatActivity {
         TextView txtTitle = (TextView)findViewById(R.id.recipe_title);
         TextView txtPrepMins = (TextView)findViewById(R.id.prep_minutes);
         ImageView imgFavIcon = (ImageView)findViewById(R.id.img_fav);
+        TextView txtIngredients = (TextView)findViewById(R.id.recipe_ingredients);
+        TextView txtInstructions = (TextView)findViewById(R.id.recipe_instructions);
 
         // loading picture using Glide library
         Glide.with(this).load(recipe.getThumbnail())
                 .centerCrop()
-                .placeholder(R.drawable.feedme)
                 .error(R.drawable.rec_default)
                 .crossFade()
                 .into(imgRecipePhoto);
@@ -123,6 +126,20 @@ public class RecipeActivity extends AppCompatActivity {
             imgFavIcon.setImageResource(R.drawable.ic_favorite_holo_dark);
         else
             imgFavIcon.setImageResource(R.drawable.ic_favorite_border_holo_dark);
+
+        if (!recipe.getIngredients().isEmpty()) {
+            Log.d(LOGCAT_DB, "Loading ingredients");
+            txtIngredients.setText("");
+            for (Ingredient ingredient : recipe.getIngredients())
+                txtIngredients.append(ingredient.toString() + "\n");
+        }
+
+        if (!recipe.getInstructions().isEmpty()) {
+            Log.d(LOGCAT_DB, "Loading instructions");
+            txtInstructions.setText("");
+            for (String instruction: recipe.getInstructions())
+                txtInstructions.append(instruction + "\n");
+        }
     }
 
     public void gotoStory(View view) {

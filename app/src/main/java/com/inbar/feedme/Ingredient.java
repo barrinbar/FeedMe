@@ -65,4 +65,9 @@ public class Ingredient {
     public void setUnits(Units units) {
         this.units = units;
     }
+
+    @Override
+    public String toString() {
+        return amount + " " + units.name() + " " + ingredient;
+    }
 }

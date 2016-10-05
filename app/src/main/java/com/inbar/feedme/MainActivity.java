@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
         datasource = new FeedMeDataSource(this);
         datasource.open();
 
-        if (!init) {
+        //if (!init) {
             createDB();
             init = true;
-        }
+        //}
 
         configureRecyclerView();
 

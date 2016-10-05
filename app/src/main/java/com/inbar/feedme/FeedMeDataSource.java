@@ -118,8 +118,12 @@ public class FeedMeDataSource {
         Cursor cursor = database.query(IngredientEntry.TABLE_NAME,
                 ingredientCols, IngredientEntry._ID + " = " + insertId, null,
                 null, null, null);
-        if (cursor.moveToFirst())
+        if (cursor.moveToFirst()) {
             newIngredient = cursorToIngredient(cursor);
+            Log.d(LOGCAT_DB, "Created ingredient " + newIngredient.getIngredient() + " with ID #" + insertId);
+        }
+        else
+            Log.d(LOGCAT_DB, "Couldn't create ingredient " + newIngredient.getIngredient());
 
         cursor.close();
 
@@ -148,8 +152,13 @@ public class FeedMeDataSource {
         Cursor cursor = database.query(InstructionEntry.TABLE_NAME,
                 instructionCols, InstructionEntry._ID + " = " + insertId, null,
                 null, null, null);
-        if (cursor.moveToFirst())
-            newInstruction = cursor.getString(2);
+        if (cursor.moveToFirst()) {
+            newInstruction = cursor.getString(cursor.getColumnIndex(InstructionEntry.COL_INSTRUCTION));
+            Log.d(LOGCAT_DB, "Created instruction " + newInstruction + " with ID #" + insertId);
+        }
+        else
+            Log.d(LOGCAT_DB, "Couldn't create instruction " + instruction);
+
         cursor.close();
 
         return newInstruction;
@@ -253,6 +262,7 @@ public class FeedMeDataSource {
 
         // Close the cursor
         cursor.close();
+        Log.d(LOGCAT_DB, "Loaded " + ingredients.size() + " ingredients");
         return ingredients;
     }
 
@@ -272,6 +282,7 @@ public class FeedMeDataSource {
 
         // Close the cursor
         cursor.close();
+        Log.d(LOGCAT_DB, "Loaded " + instructions.size() + " instructions");
         return instructions;
     }
 
@@ -324,6 +335,5 @@ public class FeedMeDataSource {
             cursor.close();
         }
         return id;
-
     }
 }
