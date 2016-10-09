@@ -22,6 +22,8 @@ import static com.inbar.feedme.FeedMeContract.TRUE;
 
 public class FeedMeDataSource {
 
+    private static FeedMeDataSource instance;
+
     // Database fields
     private SQLiteDatabase database = null;
     private DatabaseHandler dbHelper;
@@ -46,8 +48,16 @@ public class FeedMeDataSource {
             InstructionEntry.COL_INSTRUCTION
     };
 
-    public FeedMeDataSource(Context context) {
+    private FeedMeDataSource(Context context) {
         dbHelper = new DatabaseHandler(context);
+    }
+
+    public static synchronized FeedMeDataSource getInstance(Context context)
+    {
+        if (instance == null)
+            instance = new FeedMeDataSource(context);
+
+        return instance;
     }
 
     public void open() throws SQLException {
@@ -56,7 +66,8 @@ public class FeedMeDataSource {
             Log.d(LOGCAT_DB, "DB opened");
         }
     }
-    public void recreateDB() {
+    public void recreateDB()
+    {
         dbHelper.onCreate(database);
     }
 
@@ -88,22 +99,29 @@ public class FeedMeDataSource {
         cursor.close();
 
         if (recipe.getIngredients() != null && !recipe.getIngredients().isEmpty())
-            createIngredients(recipe);
+            newRecipe.setIngredients(createIngredients(insertId, recipe.getIngredients()));
         if (recipe.getInstructions() != null && !recipe.getInstructions().isEmpty())
-            createInstructions(recipe);
+            newRecipe.setInstructions(createInstructions(insertId, recipe.getInstructions()));
 
-        return getRecipe(insertId);
+        Log.d(LOGCAT_DB, "Finished creating recipe: " + newRecipe.toString());
+        newRecipe = getRecipe(insertId);
+        Log.d(LOGCAT_DB, "Finished creating recipe: " + newRecipe.toString());
+        return newRecipe;
     }
 
-    public ArrayList<Ingredient> createIngredients(Recipe recipe) {
+    public ArrayList<Ingredient> createIngredients(int recipeId, ArrayList<Ingredient> ingredients) {
+        ArrayList<Ingredient> newIngredients;
+        for (Ingredient ingredient : ingredients)
+           createIngredient(ingredient, recipeId);
 
-       for (Ingredient ingredient : recipe.getIngredients())
-           createIngredient(ingredient, recipe.getId());
-
-        return getRecipeIngredients(recipe.getId());
+        close();
+        open();
+        newIngredients = getRecipeIngredients(recipeId);
+        Log.d(LOGCAT_DB, "createIngredients: " + newIngredients);
+        return newIngredients;
     }
 
-    public Ingredient createIngredient(Ingredient ingredient, long recipeId) {
+    public Ingredient createIngredient(Ingredient ingredient, int recipeId) {
         int insertId = getNextId(IngredientEntry.TABLE_NAME);
         Ingredient newIngredient = null;
 
@@ -115,7 +133,7 @@ public class FeedMeDataSource {
         values.put(IngredientEntry.COL_UNITS, ingredient.getUnits().ordinal());
         database.insertOrThrow(IngredientEntry.TABLE_NAME, null, values);
 
-        Cursor cursor = database.query(IngredientEntry.TABLE_NAME,
+        /*Cursor cursor = database.query(IngredientEntry.TABLE_NAME,
                 ingredientCols, IngredientEntry._ID + " = " + insertId, null,
                 null, null, null);
         if (cursor.moveToFirst()) {
@@ -125,21 +143,22 @@ public class FeedMeDataSource {
         else
             Log.d(LOGCAT_DB, "Couldn't create ingredient " + newIngredient.getIngredient());
 
-        cursor.close();
+        cursor.close();*/
+        newIngredient = getIngredient(insertId);
 
         return newIngredient;
     }
 
-    public ArrayList<String> createInstructions(Recipe recipe) {
+    public ArrayList<String> createInstructions(int recipeId, ArrayList<String> instructions) {
 
-        for (String instruction : recipe.getInstructions()) {
-            createInstruction(instruction, recipe.getId());
+        for (String instruction : instructions) {
+            createInstruction(instruction, recipeId);
         }
 
-        return getRecipeInstructions(recipe.getId());
+        return getRecipeInstructions(recipeId);
     }
 
-    public String createInstruction(String instruction, long recipeId) {
+    public String createInstruction(String instruction, int recipeId) {
         int insertId = getNextId(InstructionEntry.TABLE_NAME);
         String newInstruction = null;
 
@@ -216,25 +235,14 @@ public class FeedMeDataSource {
                 new String[] { String.valueOf(recipeId), instruction });
     }
 
-    public List<Recipe> getAllRecipes() {
+    public ArrayList<Recipe> getAllRecipes() {
         ArrayList<Recipe> recipes = new ArrayList<>();
 
-        /*Cursor cursor = database.query(RecipeEntry.TABLE_NAME,
-                recipeCols, null, null, null, null, null);*/
-
-        Cursor cursor = database.rawQuery("SELECT * FROM " + RecipeEntry.TABLE_NAME, null);
+        //Cursor cursor = database.rawQuery("SELECT * FROM " + RecipeEntry.TABLE_NAME, null);
+        Cursor cursor = database.query(RecipeEntry.TABLE_NAME, recipeCols, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Recipe recipe = getRecipe(cursor.getInt(cursor.getColumnIndex(RecipeEntry._ID)));
-
-            /*Recipe recipe = cursorToRecipe(cursor);
-
-            ArrayList<Ingredient> ingredients = getRecipeIngredients(recipe.getId());
-            recipe.setIngredients(ingredients.isEmpty() ? null : ingredients);
-
-            ArrayList<String> instructions = getRecipeInstructions(recipe.getId());
-            recipe.setInstructions(instructions.isEmpty() ? null : instructions);*/
-
             recipes.add(recipe);
             cursor.moveToNext();
         }
@@ -246,27 +254,48 @@ public class FeedMeDataSource {
         return recipes;
     }
 
-    public ArrayList<Ingredient> getRecipeIngredients(long recipeId) {
+    public Ingredient getIngredient(int ingredientId) {
+        Ingredient newIngredient = null;
+        Cursor cursor = database.query(IngredientEntry.TABLE_NAME,
+                ingredientCols, IngredientEntry._ID + " = " + ingredientId, null,
+                null, null, null);
+        if (cursor.moveToFirst()) {
+            newIngredient = cursorToIngredient(cursor);
+            Log.d(LOGCAT_DB, "Created ingredient " + newIngredient.getIngredient() + " with ID #" + ingredientId);
+        }
+        else
+            Log.d(LOGCAT_DB, "Couldn't create ingredient " + ingredientId);
+
+        cursor.close();
+        return newIngredient;
+
+    }
+
+    public ArrayList<Ingredient> getRecipeIngredients(int recipeId) {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
 
         Cursor cursor = database.query(IngredientEntry.TABLE_NAME,
-                ingredientCols, IngredientEntry.COL_RECIPE + " = " + recipeId,
-                null, null, null, null);
+                ingredientCols, IngredientEntry.COL_RECIPE + " = " + recipeId, null,
+                null, null, null);
+
+        /*Cursor cursor = database.rawQuery("SELECT * FROM " + IngredientEntry.TABLE_NAME +
+                " WHERE " + IngredientEntry.COL_RECIPE + " = " + recipeId, null);*/
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Ingredient ingredient = cursorToIngredient(cursor);
+            //Ingredient ingredient = cursorToIngredient(cursor);
+            Ingredient ingredient = getIngredient(cursor.getInt(cursor.getColumnIndex(IngredientEntry._ID)));
             ingredients.add(ingredient);
+            Log.d(LOGCAT_DB, "Loaded ingredient: " + ingredient);
             cursor.moveToNext();
         }
-
+        Log.d(LOGCAT_DB, "getRecipeIngredients: " + ingredients);
         // Close the cursor
         cursor.close();
-        Log.d(LOGCAT_DB, "Loaded " + ingredients.size() + " ingredients");
         return ingredients;
     }
 
-    public ArrayList<String> getRecipeInstructions(long recipeId) {
+    public ArrayList<String> getRecipeInstructions(int recipeId) {
         ArrayList<String> instructions = new ArrayList<>();
 
         Cursor cursor = database.query(InstructionEntry.TABLE_NAME,
@@ -282,23 +311,45 @@ public class FeedMeDataSource {
 
         // Close the cursor
         cursor.close();
-        Log.d(LOGCAT_DB, "Loaded " + instructions.size() + " instructions");
         return instructions;
     }
 
-    public Recipe getRecipe(long recipeId) {
+    public Recipe getRecipeInstructions(Recipe recipe) {
+        ArrayList<String> instructions = new ArrayList<>();
+
+        Cursor cursor = database.query(InstructionEntry.TABLE_NAME,
+                instructionCols, InstructionEntry.COL_RECIPE + " = " + recipe.getId(),
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            recipe.addInstruction(cursor.getString(cursor.getColumnIndex(InstructionEntry.COL_INSTRUCTION)));
+            cursor.moveToNext();
+        }
+
+        // Close the cursor
+        cursor.close();
+        return recipe;
+    }
+
+    public Recipe getRecipe(int recipeId) {
         Recipe recipe = null;
         Cursor cursor = database.query(RecipeEntry.TABLE_NAME,
             recipeCols, RecipeEntry._ID + " = " + recipeId, null,
             null, null, null);
         if (cursor.moveToFirst()) {
             recipe = cursorToRecipe(cursor);
-            if (recipe != null) {
-                recipe.setIngredients(getRecipeIngredients(recipe.getId()));
-                recipe.setInstructions(getRecipeInstructions(recipe.getId()));
-            }
         }
         cursor.close();
+        if (recipe != null) {
+            ArrayList<Ingredient> ingredients = getRecipeIngredients(recipe.getId());
+            recipe.setIngredients(ingredients);
+            Log.d(LOGCAT_DB, "getRecipe (ingredients 1): " + ingredients);
+            Log.d(LOGCAT_DB, "getRecipe (ingredients) 2: " + recipe.getIngredients());
+            recipe.setInstructions(getRecipeInstructions(recipe.getId()));
+            Log.d(LOGCAT_DB, "getRecipe (instructions): " + recipe.getInstructions());
+        }
+
         return recipe;
     }
 

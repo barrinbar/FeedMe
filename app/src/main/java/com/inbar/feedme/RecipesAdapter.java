@@ -84,11 +84,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
             @Override
             public void onClick(View view) {
                 Log.i("FEEDME", element.getName() + " holder clicked in Recycler view");
-                Toast.makeText(mContext, "You chose to cook " + element.getName(), Toast.LENGTH_SHORT).show();
 
-                Gson gson = new Gson();
                 Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);
+
+                Log.d("FEEDME", "Sending recipe to recipe activity:\n" + element.toString());
+                Gson gson = new Gson();
                 gotoRecipe.putExtra("recipe", gson.toJson(element));
+                //gotoRecipe.putExtra("recipe", element.getId());
+
                 mContext.startActivity(gotoRecipe);
             }
         });

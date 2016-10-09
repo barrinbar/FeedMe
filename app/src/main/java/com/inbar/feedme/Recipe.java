@@ -25,8 +25,8 @@ public class Recipe implements Serializable {
         this.prepTime = prepTime;
         this.thumbnail = thumbnail;
         this.favorite = isFavorite;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
+        this.ingredients = (ingredients == null) ? new ArrayList<Ingredient>() : ingredients;
+        this.instructions = (instructions == null) ? new ArrayList<String>() : instructions;
     }
 
     public Recipe(int id, String name, int prepTime, int thumbnail, boolean isFavorite) {
@@ -121,5 +121,15 @@ public class Recipe implements Serializable {
 
     public boolean removeInstruction(int index) {
         return ingredients.remove(index) != null;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe #" + id + " " + name + "\n" +
+                "Prep time: " + prepTime + " mins" + "\n" +
+                "Thumbnail id: " + thumbnail + "\n" +
+                "Favorite: " + favorite + "\n" +
+                "Ingredients: " + ingredients + "\n" +
+                "Instructions" + instructions;
     }
 }

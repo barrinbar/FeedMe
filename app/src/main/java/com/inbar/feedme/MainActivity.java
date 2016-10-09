@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         configureToolbar();
 
-        datasource = new FeedMeDataSource(this);
+        datasource = FeedMeDataSource.getInstance(this);
         datasource.open();
 
-        //if (!init) {
+        // If there are no recipes loaded - create the DB
+        //if (datasource.getNextId(FeedMeContract.RecipeEntry.TABLE_NAME) == 1) {
             createDB();
-            init = true;
         //}
 
         configureRecyclerView();
@@ -73,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         datasource.close();
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        datasource.close();
     }
 
     private void configureToolbar() {

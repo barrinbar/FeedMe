@@ -26,6 +26,7 @@ import static com.inbar.feedme.FeedMeContract.LOGCAT_DB;
 public class RecipeActivity extends AppCompatActivity {
 
     private Recipe recipe;
+    private FeedMeDataSource datasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,17 @@ public class RecipeActivity extends AppCompatActivity {
 
         // Make sure user reached this acivity properly with an intended recipe
         if (intent.hasExtra("recipe")) {
+            datasource = FeedMeDataSource.getInstance(this);
+            datasource.open();
+
             Gson gson = new Gson();
             String strRecipe = getIntent().getStringExtra("recipe");
             recipe = gson.fromJson(strRecipe, Recipe.class);
+            /*int recipeId = getIntent().getIntExtra("recipe", -1);
+            Log.i("FEEDME", "Loading recipe " + recipeId);
+            loadRecipe(recipeId);*/
             Log.i("FEEDME", "Loading recipe " + recipe.getName());
+            Log.d("FEEDME", "Got recipe from main activity:\n" + recipe.toString());
             loadRecipe();
         }
         else
@@ -51,6 +59,24 @@ public class RecipeActivity extends AppCompatActivity {
                             finish();
                         }
                     }).show();
+    }
+
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        datasource.close();
     }
 
     @Override
@@ -109,6 +135,9 @@ public class RecipeActivity extends AppCompatActivity {
         TextView txtIngredients = (TextView)findViewById(R.id.recipe_ingredients);
         TextView txtInstructions = (TextView)findViewById(R.id.recipe_instructions);
 
+        /*// Load recipe from DB
+        recipe = datasource.getRecipe(recipeId);*/
+
         // loading picture using Glide library
         Glide.with(this).load(recipe.getThumbnail())
                 .centerCrop()
@@ -127,19 +156,25 @@ public class RecipeActivity extends AppCompatActivity {
         else
             imgFavIcon.setImageResource(R.drawable.ic_favorite_border_holo_dark);
 
-        if (!recipe.getIngredients().isEmpty()) {
-            Log.d(LOGCAT_DB, "Loading ingredients");
-            txtIngredients.setText("");
-            for (Ingredient ingredient : recipe.getIngredients())
-                txtIngredients.append(ingredient.toString() + "\n");
-        }
+        //if (!recipe.getIngredients().isEmpty()) {
+            Log.d(LOGCAT_DB, "Loading "+ recipe.getIngredients().size() +" ingredients");
+        String ingredientsText = "";
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                ingredientsText += ingredient.toString() + "\n";
+                Log.d(LOGCAT_DB, ingredient.toString());
+            }
+        txtIngredients.setText(ingredientsText);
 
-        if (!recipe.getInstructions().isEmpty()) {
-            Log.d(LOGCAT_DB, "Loading instructions");
+        //}
+
+        //if (!recipe.getInstructions().isEmpty()) {
+            Log.d(LOGCAT_DB, "Loading "+ recipe.getInstructions().size() +" instructions");
             txtInstructions.setText("");
-            for (String instruction: recipe.getInstructions())
+            for (String instruction: recipe.getInstructions()) {
                 txtInstructions.append(instruction + "\n");
-        }
+                Log.d(LOGCAT_DB, instruction);
+            }
+        //}
     }
 
     public void gotoStory(View view) {
