@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -42,11 +43,6 @@ public class RecipeActivity extends AppCompatActivity {
             Gson gson = new Gson();
             String strRecipe = getIntent().getStringExtra("recipe");
             recipe = gson.fromJson(strRecipe, Recipe.class);
-            /*int recipeId = getIntent().getIntExtra("recipe", -1);
-            Log.i("FEEDME", "Loading recipe " + recipeId);
-            loadRecipe(recipeId);*/
-            Log.i("FEEDME", "Loading recipe " + recipe.getName());
-            Log.d("FEEDME", "Got recipe from main activity:\n" + recipe.toString());
             loadRecipe();
         }
         else
@@ -104,12 +100,12 @@ public class RecipeActivity extends AppCompatActivity {
 
             case R.id.action_add_favourite: {
                 if (recipe.isFavorite()) {
-                    item.setIcon(R.drawable.ic_favorite_border_white_18dp);
+                    item.setIcon(R.drawable.ic_favorite_border_holo_light);
                     item.setTitle(R.string.remove_from_favorites);
                     recipe.setFavorite(false);
                 }
                 else {
-                    item.setIcon(R.drawable.ic_favorite_white_18dp);
+                    item.setIcon(R.drawable.ic_favorite_holo_light);
                     item.setTitle(R.string.add_to_favorites);
                     recipe.setFavorite(true);
                 }
@@ -175,6 +171,16 @@ public class RecipeActivity extends AppCompatActivity {
                 Log.d(LOGCAT_DB, instruction);
             }
         //}
+    }
+
+    public void editRecipe(View view) {
+        Intent editRecipe = new Intent(this, EditRecipeActivity.class);
+
+        Log.d("FEEDME", "Editing recipe:\n" + recipe.toString());
+        Gson gson = new Gson();
+        editRecipe.putExtra("recipe", gson.toJson(recipe));
+
+        this.startActivity(editRecipe);
     }
 
     public void gotoStory(View view) {

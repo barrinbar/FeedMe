@@ -83,8 +83,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("FEEDME", element.getName() + " holder clicked in Recycler view");
-
                 Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);
 
                 Log.d("FEEDME", "Sending recipe to recipe activity:\n" + element.toString());

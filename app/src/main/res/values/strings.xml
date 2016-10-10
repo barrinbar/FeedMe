@@ -13,6 +13,7 @@
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">\"Remove from favorites\"</string>
     <string name="recipe_picture_desc">Recipe picture</string>
+    <string name="click_to_change_img">Click to change image</string>
 
     <plurals name="numberOfMinutes">
         <item quantity="one">%d minute</item>
