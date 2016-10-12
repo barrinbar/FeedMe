@@ -152,25 +152,17 @@ public class RecipeActivity extends AppCompatActivity {
         else
             imgFavIcon.setImageResource(R.drawable.ic_favorite_border_holo_dark);
 
-        //if (!recipe.getIngredients().isEmpty()) {
-            Log.d(LOGCAT_DB, "Loading "+ recipe.getIngredients().size() +" ingredients");
         String ingredientsText = "";
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                ingredientsText += ingredient.toString() + "\n";
-                Log.d(LOGCAT_DB, ingredient.toString());
-            }
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            ingredientsText += ingredient.toString() + "\n";
+        }
         txtIngredients.setText(ingredientsText);
 
-        //}
+        txtInstructions.setText("");
+        for (String instruction: recipe.getInstructions()) {
+            txtInstructions.append(instruction + "\n");
+        }
 
-        //if (!recipe.getInstructions().isEmpty()) {
-            Log.d(LOGCAT_DB, "Loading "+ recipe.getInstructions().size() +" instructions");
-            txtInstructions.setText("");
-            for (String instruction: recipe.getInstructions()) {
-                txtInstructions.append(instruction + "\n");
-                Log.d(LOGCAT_DB, instruction);
-            }
-        //}
     }
 
     public void editRecipe(View view) {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@android:dimen/dialog_min_width_major"
+        android:inputType="text|textCapSentences|textAutoCorrect|textLongMessage"
+        android:hint="Instruction" />
+
+    <ImageView
+        android:id="@+id/edit_instruction_approve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done"
+        android:background="@color/colorAccent"/>
+
+</LinearLayout>

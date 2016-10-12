@@ -20,40 +20,92 @@
         <item quantity="other">%d minutes</item>
     </plurals>
 
-    <plurals name="grams">
-        <item quantity="one">%d gram</item>
-        <item quantity="other">%d grams</item>
+    <plurals name="GRAMS">
+        <item quantity="one">gram</item>
+        <item quantity="other">grams</item>
     </plurals>
-    <plurals name="cups">
-        <item quantity="one">%d cup</item>
-        <item quantity="other">%d cups</item>
+    <plurals name="CUPS">
+        <item quantity="one">cup</item>
+        <item quantity="other">cups</item>
     </plurals>
-    <plurals name="tbsps">
-        <item quantity="one">%d tbsp</item>
-        <item quantity="other">%d tbsps</item>
+    <plurals name="TBSPS">
+        <item quantity="one">tbsp</item>
+        <item quantity="other">tbsps</item>
     </plurals>
-    <plurals name="tsps">
-        <item quantity="one">%d tsp</item>
-        <item quantity="other">%d tsps</item>
+    <plurals name="TSPS">
+        <item quantity="one">tsp</item>
+        <item quantity="other">tsps</item>
     </plurals>
-    <plurals name="liter">
-        <item quantity="one">%d liter</item>
-        <item quantity="other">%d liters</item>
+    <plurals name="LITRES">
+        <item quantity="one">litre</item>
+        <item quantity="other">litres</item>
     </plurals>
-    <plurals name="ml">
-        <item quantity="one">%d ml</item>
-        <item quantity="other">%d ml</item>
+    <plurals name="ML">
+        <item quantity="one">ml</item>
+        <item quantity="other">ml</item>
     </plurals>
-    <plurals name="oz">
-        <item quantity="one">%d oz</item>
-        <item quantity="other">%d oz</item>
+    <plurals name="FLOZ">
+        <item quantity="one">floz</item>
+        <item quantity="other">floz</item>
     </plurals>
-    <plurals name="pints">
-        <item quantity="one">%d pint</item>
-        <item quantity="other">%d pints</item>
+    <plurals name="PINTS">
+        <item quantity="one">pint</item>
+        <item quantity="other">pints</item>
     </plurals>
-    <plurals name="quarts">
-        <item quantity="one">%d quart</item>
-        <item quantity="other">%d quarts</item>
+    <plurals name="QUARTS">
+        <item quantity="one">quart</item>
+        <item quantity="other">quarts</item>
+    </plurals>
+    <plurals name="GALLONS">
+        <item quantity="one">gallon</item>
+        <item quantity="other">gallons</item>
+    </plurals>
+    <plurals name="MG">
+        <item quantity="one">mg</item>
+        <item quantity="other">mg</item>
+    </plurals>
+    <plurals name="KG">
+        <item quantity="one">kg</item>
+        <item quantity="other">kg</item>
+    </plurals>
+    <plurals name="OZ">
+        <item quantity="one">oz</item>
+        <item quantity="other">oz</item>
+    </plurals>
+    <plurals name="POUNDS">
+        <item quantity="one">pound</item>
+        <item quantity="other">pounds</item>
+    </plurals>
+    <plurals name="INCHES">
+    <item quantity="one">inch</item>
+    <item quantity="other">inches</item>
+    </plurals>
+    <plurals name="CM">
+        <item quantity="one">cm</item>
+        <item quantity="other">cm</item>
+    </plurals>
+    <plurals name="DASHES">
+        <item quantity="one">dash</item>
+        <item quantity="other">dashes</item>
+    </plurals>
+    <plurals name="PINCHES">
+        <item quantity="one">pinch</item>
+        <item quantity="other">pinches</item>
+    </plurals>
+    <plurals name="CEL">
+        <item quantity="one">cel</item>
+        <item quantity="other">cel</item>
+    </plurals>
+    <plurals name="FAR">
+        <item quantity="one">far</item>
+        <item quantity="other">far</item>
+    </plurals>
+    <plurals name="UNITS">
+        <item quantity="one">units</item>
+        <item quantity="other">units</item>
+    </plurals>
+    <plurals name="BUNDLES">
+        <item quantity="one">bundle</item>
+        <item quantity="other">bundles</item>
     </plurals>
 </resources>

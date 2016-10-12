@@ -22,4 +22,5 @@
     <dimen name="ic_recipe_favor_margin_top">10dp</dimen>
     <dimen name="ic_recipe_favor_margin_end">16dp</dimen>
     <dimen name="ic_recipe_favor_margin_start">16dp</dimen>
+    <dimen name="ingredients_height">160dp</dimen>
 </resources>

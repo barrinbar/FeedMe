@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="units_array">
+        <item>CUPS</item>
+        <item>TBSPS</item>
+        <item>TSPS</item>
+        <item>DROPS</item>
+        <item>ML</item>
+        <item>LITRES</item>
+        <item>FLOZ</item>
+        <item>PINTS</item>
+        <item>QUARTS</item>
+        <item>GALLONS</item>
+        <item>MG</item>
+        <item>GRAMS</item>
+        <item>KG</item>
+        <item>OZ</item>
+        <item>POUNDS</item>
+        <item>INCHES</item>
+        <item>CM</item>
+        <item>DASHES</item>
+        <item>PINCHES</item>
+        <item>CEL</item>
+        <item>FAR</item>
+        <item>UNITS</item>
+        <item>BUNDLES</item>
+    </string-array>
+</resources>

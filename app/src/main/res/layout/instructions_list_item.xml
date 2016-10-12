@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_edit_instruction"
+        android:src="@drawable/ic_action_edit_holo_light"
+        android:paddingStart="@dimen/ic_recipe_favor_margin_start" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_delete_instruction"
+        android:src="@drawable/ic_action_discard_holo_light"
+        android:paddingStart="@dimen/ic_recipe_favor_margin_start" />
+
+    <TextView
+        android:id="@+id/tv_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/ic_recipe_favor_margin_start" />
+
+</LinearLayout>

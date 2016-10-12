@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecipesAdapter adapter;
     private List<Recipe> recipeList;
-    private static boolean init = false;
     private FeedMeDataSource datasource;
 
     @Override
@@ -41,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         datasource = FeedMeDataSource.getInstance(this);
         datasource.open();
 
-        // If there are no recipes loaded - create the DB
-        //if (datasource.getNextId(FeedMeContract.RecipeEntry.TABLE_NAME) == 1) {
+        // If there are no recipes - create the DB
+        if (datasource.getNextId(FeedMeContract.RecipeEntry.TABLE_NAME) == 1) {
             createDB();
-        //}
+        }
 
         configureRecyclerView();
 
@@ -101,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
         recipeList = new ArrayList<>();
         adapter = new RecipesAdapter(this, recipeList);
-
-        //loadRecipes();
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -215,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (adapter != null) {
             adapter.notifyDataSetChanged();
-            Log.d(LOGCAT_DB, "Notified adapter\nTo refresh he recycler view");
         }
     }
 
@@ -260,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Converting dp to pixel
      */
-    private int dpToPx(int dp) {
+    public int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }

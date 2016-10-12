@@ -28,7 +28,7 @@ import rx.Observable;*/
  */
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHolder> {
 
-    private Context mContext;
+    private Context context;
     private List<Recipe> recipeList;
     //private final PublishSubject<Recipe> onClickSubject = PublishSubject.create();
 
@@ -46,7 +46,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
     }
 
     public RecipesAdapter(Context mContext, List<Recipe> recipeList) {
-        this.mContext = mContext;
+        this.context = mContext;
         this.recipeList = recipeList;
     }
 
@@ -63,12 +63,12 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
         final Recipe element = recipeList.get(position);
 
         holder.title.setText(element.getName());
-        Resources res = mContext.getResources();
+        Resources res = context.getResources();
         String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, element.getPrepTime(), element.getPrepTime());
         holder.time.setText(prepTime);
 
         // loading picture using Glide library
-        Glide.with(mContext).load(element.getThumbnail())
+        Glide.with(context).load(element.getThumbnail())
                 .centerCrop()
                 .error(R.drawable.rec_default)
                 .crossFade()
@@ -83,14 +83,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gotoRecipe = new Intent(mContext, RecipeActivity.class);
+                Intent gotoRecipe = new Intent(context, RecipeActivity.class);
 
                 Log.d("FEEDME", "Sending recipe to recipe activity:\n" + element.toString());
                 Gson gson = new Gson();
                 gotoRecipe.putExtra("recipe", gson.toJson(element));
                 //gotoRecipe.putExtra("recipe", element.getId());
 
-                mContext.startActivity(gotoRecipe);
+                context.startActivity(gotoRecipe);
             }
         });
     }
@@ -100,7 +100,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
      */
     private void showPopupMenu(View view) {
         // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
+        PopupMenu popup = new PopupMenu(context, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.recipe_popup, popup.getMenu());
         popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
@@ -119,10 +119,10 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.MyViewHo
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favourite:
-                    Toast.makeText(mContext, "Add to favourites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Add to favourites", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_share:
-                    Toast.makeText(mContext, "Share", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
                     return true;
                 default:
             }

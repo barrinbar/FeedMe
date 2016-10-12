@@ -153,27 +153,34 @@ public class FeedMeDataSource {
                 null, null, null);
         if (cursor.moveToFirst()) {
             newInstruction = cursor.getString(cursor.getColumnIndex(InstructionEntry.COL_INSTRUCTION));
-            Log.d(LOGCAT_DB, "Created instruction " + newInstruction + " with ID #" + insertId);
         }
         else
-            Log.d(LOGCAT_DB, "Couldn't create instruction " + instruction);
+            Log.e(LOGCAT_DB, "Couldn't create instruction " + instruction);
 
         cursor.close();
 
         return newInstruction;
     }
 
-    public int updateRecipe(Recipe recipe) {
+    public void updateRecipe(Recipe recipe) {
         ContentValues values = new ContentValues();
         values.put(RecipeEntry.COL_NAME, recipe.getName());
         values.put(RecipeEntry.COL_TIME, recipe.getPrepTime());
         values.put(RecipeEntry.COL_THUMBNAIL, recipe.getThumbnail());
         values.put(RecipeEntry.COL_FAVORITE, recipe.isFavorite() ? TRUE : FALSE);
-        return database.update(RecipeEntry.TABLE_NAME, values,
+        database.update(RecipeEntry.TABLE_NAME, values,
                 RecipeEntry._ID + " = ?", new String[] { String.valueOf(recipe.getId()) });
+
+        // Update ingredients
+        deleteRecipeIngredients(recipe.getId());
+        createIngredients(recipe.getId(), recipe.getIngredients());
+
+        // Update instructions
+        deleteRecipeInstructions(recipe.getId());
+        createInstructions(recipe.getId(), recipe.getInstructions());
     }
 
-    public int updateIngredient(Ingredient ingredient, long recipeId) {
+    public int updateIngredient(Ingredient ingredient, int recipeId) {
         ContentValues values = new ContentValues();
         values.put(IngredientEntry.COL_INGREDIENT, ingredient.getIngredient());
         values.put(IngredientEntry.COL_RECIPE, recipeId);
@@ -184,7 +191,7 @@ public class FeedMeDataSource {
                 new String[] { String.valueOf(recipeId), ingredient.getIngredient() });
     }
 
-    public int updateInstruction(String instruction, long recipeId) {
+    public int updateInstruction(String instruction, int recipeId) {
         ContentValues values = new ContentValues();
         values.put(InstructionEntry.COL_INSTRUCTION, instruction);
         values.put(InstructionEntry.COL_RECIPE, recipeId);
@@ -203,16 +210,26 @@ public class FeedMeDataSource {
                 new String[] { String.valueOf(recipe.getId()) });
     }
 
-    public void deleteIngredient(Ingredient ingredient, long recipeId) {
-        database.delete(IngredientEntry.TABLE_NAME, IngredientEntry.COL_RECIPE + " = ? "
+    public void deleteIngredient(Ingredient ingredient, int recipeId) {
+        database.delete(IngredientEntry.TABLE_NAME, IngredientEntry.COL_RECIPE + " = ? AND "
                         + IngredientEntry.COL_INGREDIENT + " = ?",
                 new String[] { String.valueOf(recipeId), ingredient.getIngredient() });
     }
 
-    public void deleteInstruction(String instruction, long recipeId) {
-        database.delete(InstructionEntry.TABLE_NAME, InstructionEntry.COL_RECIPE + " = ? "
+    public void deleteInstruction(String instruction, int recipeId) {
+        database.delete(InstructionEntry.TABLE_NAME, InstructionEntry.COL_RECIPE + " = ? AND "
                         + InstructionEntry.COL_INSTRUCTION + " = ?",
                 new String[] { String.valueOf(recipeId), instruction });
+    }
+
+    public void deleteRecipeIngredients(int recipeId) {
+        database.delete(IngredientEntry.TABLE_NAME, IngredientEntry.COL_RECIPE + " = ?",
+                new String[] { String.valueOf(recipeId) });
+    }
+
+    public void deleteRecipeInstructions(int recipeId) {
+        database.delete(InstructionEntry.TABLE_NAME, InstructionEntry.COL_RECIPE + " = ?",
+                new String[] { String.valueOf(recipeId) });
     }
 
     public ArrayList<Recipe> getAllRecipes() {
@@ -243,7 +260,7 @@ public class FeedMeDataSource {
             newIngredient = cursorToIngredient(cursor);
         }
         else
-            Log.e(LOGCAT_DB, "Couldn't create ingredient " + ingredientId);
+            Log.e(LOGCAT_DB, "Couldn't get ingredient " + ingredientId);
 
         cursor.close();
         return newIngredient;
