@@ -60,7 +60,7 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String newInstruction = showEditDialog(holder.edit, element);
+                String newInstruction = showEditDialog(element);
                 if (!newInstruction.equals(element)) {
                     element.replace(element, newInstruction);
                     notifyDataSetChanged();
@@ -92,7 +92,7 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
         });
     }
 
-    private String showEditDialog(View view, final String instruction) {
+    /*private String showEditDialog(View view, final String instruction) {
         final String newInstruction= instruction;
 
         final Dialog instructionEdit = new Dialog(context);
@@ -115,6 +115,40 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
 
         instructionEdit.show();
         return newInstruction;
+    }*/
+
+    private String showEditDialog(final String instruction) {
+        final String newInstruction= instruction;
+
+        final Dialog instructionEdit = new Dialog(context);
+        instructionEdit.setTitle("Edit instruction");
+        instructionEdit.setContentView(R.layout.instruction_edit_dialog);
+
+        final EditText instructionName = (EditText) instructionEdit.findViewById(R.id.et_instruction);
+
+        if (!instruction.isEmpty())
+            instructionName.setText(instruction);
+
+        ImageView approve = (ImageView) instructionEdit.findViewById(R.id.edit_instruction_approve);
+        approve.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+
+                   if (instructionName.getText().toString().trim().isEmpty()) {
+                       instructionName.setError("Please enter  valid instruction (not empty)");
+                   }
+                   else {
+                       instructionName.setError("");
+                       newInstruction.replace(instruction, instructionName.getText().toString().trim());
+                       notifyDataSetChanged();
+                       instructionEdit.dismiss();
+                   }
+               }
+           }
+        );
+
+        instructionEdit.show();
+        return newInstruction;
     }
 
     @Override
@@ -122,5 +156,17 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
         if (instructionsList != null)
             return instructionsList.size();
         return 0;
+    }
+
+    public List<String> getInstructions() {
+        return instructionsList;
+    }
+
+    public void addNewInstruction() {
+        String newInstruction = showEditDialog(null);
+        if (!newInstruction.isEmpty()) {
+            instructionsList.add(newInstruction);
+            notifyDataSetChanged();
+        }
     }
 }

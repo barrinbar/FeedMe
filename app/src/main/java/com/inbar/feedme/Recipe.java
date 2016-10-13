@@ -43,6 +43,11 @@ public class Recipe implements Serializable {
         this.setInstructions(recipe.getInstructions());
     }
 
+    public Recipe() {
+        this(-1, "", 0, R.drawable.rec_default, false);
+
+    }
+
     public int getId() {
         return id;
     }
@@ -131,5 +136,13 @@ public class Recipe implements Serializable {
                 "Favorite: " + favorite + "\n" +
                 "Ingredients: " + ingredients + "\n" +
                 "Instructions" + instructions;
+    }
+
+    public boolean isEmpty() {
+        return (name == "" &&
+                prepTime == 0 &&
+                thumbnail == R.drawable.rec_default &&
+                (ingredients == null || ingredients.isEmpty()) &&
+                (instructions == null || instructions.isEmpty()));
     }
 }

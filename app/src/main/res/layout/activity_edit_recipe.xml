@@ -42,7 +42,8 @@
             android:id="@+id/edit_recipe_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/backdrop_title" />
+            android:textSize="@dimen/backdrop_title"
+            android:hint="Recipe Name"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -59,13 +60,21 @@
                 android:id="@+id/edit_prep_minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/img_time" />
+                android:layout_toEndOf="@id/img_time"
+                android:hint="Prep Time"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" minutes"/>
+
             <ImageView
                 android:id="@+id/img_fav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:src="@drawable/ic_favorite_holo_light"
+                android:contentDescription="Click to toggle favorite"
                 />
         </RelativeLayout>
 
@@ -76,23 +85,54 @@
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingEnd="@dimen/activity_horizontal_margin">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Ingredients"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Ingredients"/>
+
+                <ImageView
+                    android:id="@+id/img_add_ingredient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/item_offset"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_add_black"
+                    android:contentDescription="Add a new ingredient"
+                    android:onClick="addIngredient"
+                    />
+            </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/edit_recipe_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ingredients_height"
                 android:clipToPadding="false"
                 android:scrollbars="vertical" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Instructions"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Instructions"/>
+                <ImageView
+                    android:id="@+id/img_add_instruction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/item_offset"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_add_black"
+                    android:contentDescription="Add a new instruction"
+                    android:onClick="addInstruction"
+                    />
+            </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/edit_recipe_instructions"
                 android:layout_width="match_parent"
@@ -111,5 +151,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:src="@drawable/ic_done"/>
+        android:src="@drawable/ic_done"
+        android:onClick="saveChanges"
+        android:contentDescription="Confirm and save changes" />
 </android.support.design.widget.CoordinatorLayout>

@@ -127,7 +127,7 @@ public class RecipeActivity extends AppCompatActivity {
         ImageView imgRecipePhoto = (ImageView)findViewById(R.id.recipe_photo);
         TextView txtTitle = (TextView)findViewById(R.id.recipe_title);
         TextView txtPrepMins = (TextView)findViewById(R.id.prep_minutes);
-        ImageView imgFavIcon = (ImageView)findViewById(R.id.img_fav);
+        final ImageView imgFavIcon = (ImageView)findViewById(R.id.img_fav);
         TextView txtIngredients = (TextView)findViewById(R.id.recipe_ingredients);
         TextView txtInstructions = (TextView)findViewById(R.id.recipe_instructions);
 
@@ -147,10 +147,30 @@ public class RecipeActivity extends AppCompatActivity {
         String prepTime = res.getQuantityString(R.plurals.numberOfMinutes, recipe.getPrepTime(), recipe.getPrepTime());
         txtPrepMins.setText(prepTime);
 
-        if (recipe.isFavorite())
-            imgFavIcon.setImageResource(R.drawable.ic_favorite_holo_dark);
-        else
-            imgFavIcon.setImageResource(R.drawable.ic_favorite_border_holo_dark);
+        if (recipe.isFavorite()) {
+            imgFavIcon.setImageResource(R.drawable.ic_favorite_holo_light);
+            imgFavIcon.setTag(R.drawable.ic_favorite_holo_light);
+        }
+        else {
+            imgFavIcon.setImageResource(R.drawable.ic_favorite_border_holo_light);
+            imgFavIcon.setTag(R.drawable.ic_favorite_border_holo_light);
+        }
+
+        imgFavIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((int)imgFavIcon.getTag() == R.drawable.ic_favorite_holo_light) {
+                    imgFavIcon.setImageResource(R.drawable.ic_favorite_border_holo_light);
+                    imgFavIcon.setTag(R.drawable.ic_favorite_border_holo_light);
+                    recipe.setFavorite(false);
+                }
+                else {
+                    imgFavIcon.setImageResource(R.drawable.ic_favorite_holo_light);
+                    imgFavIcon.setTag(R.drawable.ic_favorite_holo_light);
+                    recipe.setFavorite(true);
+                }
+            }
+        });
 
         String ingredientsText = "";
         for (Ingredient ingredient : recipe.getIngredients()) {

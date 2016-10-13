@@ -1,5 +1,6 @@
 package com.inbar.feedme;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -213,6 +214,13 @@ public class MainActivity extends AppCompatActivity {
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void createNewRecipe(View view) {
+        Intent createRecipe = new Intent(this, EditRecipeActivity.class);
+
+        Log.d("FEEDME", "Creating new recipe");
+        this.startActivity(createRecipe);
     }
 
     /**

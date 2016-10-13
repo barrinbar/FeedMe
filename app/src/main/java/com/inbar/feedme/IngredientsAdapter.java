@@ -58,15 +58,14 @@ public class IngredientsAdapter extends android.support.v7.widget.RecyclerView.A
         final Ingredient element = ingredientsList.get(position);
 
         holder.amount.setText(Double.toString(element.getAmount()));
-        Resources res = context.getResources();
-        //String units = res.getQuantityString(R.plurals.units, (int)element.getAmount());
         holder.units.setText(element.getUnits().name().toLowerCase());
         holder.ingredient.setText(element.getIngredient());
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Ingredient newIngredient = showEditDialog(holder.edit, element);
+                //Ingredient newIngredient = showEditDialog(holder.edit, element);
+                Ingredient newIngredient = showEditDialog(element);
                 if (!newIngredient.equals(element)) {
                     element.setAmount(newIngredient.getAmount());
                     element.setUnits(newIngredient.getUnits());
@@ -100,7 +99,7 @@ public class IngredientsAdapter extends android.support.v7.widget.RecyclerView.A
         });
     }
 
-    private Ingredient showEditDialog(View view, final Ingredient ingredient) {
+    /*private Ingredient showEditDialog(View view, final Ingredient ingredient) {
         final Ingredient newIngredient = ingredient;
 
         final Dialog ingredientEdit = new Dialog(context);
@@ -123,13 +122,65 @@ public class IngredientsAdapter extends android.support.v7.widget.RecyclerView.A
 
         ImageButton approve = (ImageButton) ingredientEdit.findViewById(R.id.edit_ingredient_approve);
         approve.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View view) {
+                                           newIngredient.setAmount(Double.parseDouble(amount.getText().toString().trim()));
+                                           newIngredient.setIngredient(ingredientName.getText().toString().trim());
+                                           newIngredient.setUnits(Ingredient.Units.values()[spinner.getSelectedItemPosition()]);
+                                           ingredientEdit.dismiss();
+                                       }
+                                   }
+        );*/
+    private Ingredient showEditDialog(final Ingredient ingredient) {
+        final Ingredient newIngredient = ingredient;
+
+        final Dialog ingredientEdit = new Dialog(context);
+        ingredientEdit.setTitle("Edit Ingredient");
+        ingredientEdit.setContentView(R.layout.ingredient_edit_dialog);
+
+        final EditText amount = (EditText) ingredientEdit.findViewById(R.id.et_amount);
+        final EditText ingredientName = (EditText) ingredientEdit.findViewById(R.id.et_ingredient);
+
+        // Units spinner
+        final Spinner spinner = (Spinner) ingredientEdit.findViewById(R.id.units_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter .createFromResource(context,
+                R.array.units_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        // If updating an existing ingredient get current values
+        if (ingredient != null) {
+            amount.setText(Double.toString(ingredient.getAmount()));
+            ingredientName.setText(ingredient.getIngredient());
+            spinner.setSelection(ingredient.getUnits().ordinal());
+        }
+
+        ImageButton approve = (ImageButton) ingredientEdit.findViewById(R.id.edit_ingredient_approve);
+        approve.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   newIngredient.setAmount(Double.parseDouble(amount.getText().toString().trim()));
-                   newIngredient.setIngredient(ingredientName.getText().toString().trim());
-                   newIngredient.setUnits(Ingredient.Units.values()[spinner.getSelectedItemPosition()]);
-                   ingredientEdit.dismiss();
-                   notifyDataSetChanged();
+                   boolean validInput = true;
+                   if (amount.getText().toString().isEmpty() ||
+                           (Integer.parseInt(amount.getText().toString().trim()) <= 0)) {
+                       validInput = false;
+                       amount.setError("Amount must be a valid positive number");
+                   }
+                   else
+                       amount.setError("");
+
+                   if (ingredientName.getText().toString().isEmpty()) {
+                       validInput = false;
+                       ingredientName.setError("Please specify an ingredient");
+                   }
+                   else
+                       ingredientName.setError("");
+
+                   if (validInput) {
+                       newIngredient.setAmount(Double.parseDouble(amount.getText().toString().trim()));
+                       newIngredient.setIngredient(ingredientName.getText().toString().trim());
+                       newIngredient.setUnits(Ingredient.Units.values()[spinner.getSelectedItemPosition()]);
+                       ingredientEdit.dismiss();
+                   }
                }
            }
         );
@@ -143,5 +194,18 @@ public class IngredientsAdapter extends android.support.v7.widget.RecyclerView.A
         if (ingredientsList != null)
             return ingredientsList.size();
         return 0;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredientsList;
+    }
+
+    public void addNewIngredient() {
+        Ingredient newIngredient = showEditDialog(null);
+        if (!newIngredient.getIngredient().isEmpty() &&
+                newIngredient.getAmount() != 0) {
+            ingredientsList.add(newIngredient);
+            notifyDataSetChanged();
+        }
     }
 }
